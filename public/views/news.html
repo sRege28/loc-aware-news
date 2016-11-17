@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="../libs/angular/angular.min.js"></script>
+<script src="../libs/leaflet/dist/leaflet.js"></script>
+<script src="../libs/angular-simple-logger/dist/angular-simple-logger.js"></script>
+<script src="../libs/ui-leaflet/dist/ui-leaflet.min.js"></script>
+<script src="../libs/ui-leaflet/dist/ui-leaflet_dev_mapped.js"></script>
+<script src="../js/controllers/NewsController.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<link rel="stylesheet" href="../libs/leaflet/dist/leaflet.css" />
+
+<style>
+	input {
+		width: 120px;
+		margin-right: 10px;
+	}
+</style>
+
+</head>
+
+<body ng-app="myApp" ng-controller="GeoJSONController">
+<div>
+ <h1>World News</h1>
+ <label for="singleSelect"> Select region to zoom into: </label><br>
+    <select ng-options="marker as marker.loc for marker in markers" ng-model="selectedRegion" ng-change="centerMap()">
+    </select><br>
+    <tt></tt>
+	
+ <leaflet defaults="defaults" lf-center="center" markers="markers" event-broadcast="events" geojson="geojson" width="100%" height="480px"></leaflet>
+    
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="newsModal" tabindex="-1" role="dialog" aria-labelledby="newsModal" 
+	aria-hidden="true" data-keyboard="false" data-backdrop="static">
+   <div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">{{selectedNews.msg}}</h4>
+			</div>
+			<div class="modal-body">
+	  			<div class="form-group">
+	  				<div>{{selectedNews.txt}}</div>
+	  			</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal"
+					ng-click="closeModal()">Cancel</button>
+			</div>
+		</div>
+	</div>
+</div>
+	
+</body>
+
+</html>
