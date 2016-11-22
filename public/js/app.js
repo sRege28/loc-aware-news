@@ -1,2 +1,20 @@
 // public/js/app.js
-angular.module('sampleApp', ['ngRoute', 'appRoutes', 'MainCtrl', 'NerdCtrl', 'NerdService']);
+var newsApp = angular.module('newsApp', ['ngRoute', 'ui-leaflet','ngSanitize', 'ui.select']);
+newsApp.config(function($routeProvider, $httpProvider) {
+
+    $routeProvider
+
+        // home page
+        .when('/', {
+            templateUrl: 'views/news.html',
+            controller: 'NewsController'
+        })
+        // news page that will use the NewsController
+        /* .when('/news', {
+            templateUrl: 'views/news.html',
+            controller: 'NewsController'
+        }) */.otherwise({
+			redirectTo: '/'
+		});
+
+});

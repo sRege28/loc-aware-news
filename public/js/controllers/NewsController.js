@@ -1,5 +1,21 @@
-var app = angular.module('myApp',['ui-leaflet']);
-app.controller('GeoJSONController', [ '$scope','leafletData', function($scope, leafletData) {
+angular.module('newsApp').controller('NewsController', [ '$scope','leafletData', 'NewsService', function($scope, leafletData, NewsService) {
+
+$scope.countries = [];
+
+function init(){
+	
+NewsService.getCountries().then(function(res) {
+		if (res != null) {
+		   $scope.countries = res.features;
+		   console.log($scope.countries);
+		} else {
+			console.log("Error");
+		}
+});
+
+}
+
+init();
 
 $scope.points = [
 	{
@@ -15,7 +31,7 @@ $scope.points = [
       ],
 	  "geometry": {
 			"type": "Point",
-			"coordinates": [3, 51]
+			"coordinates": [-0.117, 51.5]
 		}
     },
     {
@@ -91,15 +107,21 @@ $scope.points = [
 	
 	$scope.getMarkers = function() {
 		var markArray = {};
+		var i = {
+					type: 'awesomeMarker',
+					icon: 'tag',
+					markerColor: 'blue'
+				}
 		angular.forEach($scope.points, function(value, key) {
 			//console.log(value);
 			var cords = value.geometry.coordinates;
 			var lonv = cords[0];
 			var latv = cords[1];
 			var id = value.id;
-			markArray[id] = {lat: latv, lng:lonv, focus:true, draggable:false, loc: value.locations[0].name, msg:value.title, txt:value.text};
+			markArray[id] = {lat: latv, lng:lonv, focus:true, draggable:false, loc: value.locations[0].name, msg:value.title, txt:value.text, layer:'clusterGroup', icon : i};
 		});
 		$scope.markers = markArray;
+		
 		console.log($scope.markers);
     };
 	
@@ -109,17 +131,17 @@ $scope.points = [
 				lng: 14.0625,
 				zoom: 2
 			},
-			geojson: {
-				data: $scope.points,
+			/* geojson: {
+				data: $scope.countries,
 				style: {
-					fillColor: "green",
+					fillColor: "white",
 					weight: 2,
 					opacity: 1,
-					color: 'white',
+					color: 'green',
 					dashArray: '3',
-					fillOpacity: 0.7
+					fillOpacity: 0.2
 				}
-			},
+			}, */
 			defaults: {
 				tileLayer: "http://{s}.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png",
 				zoomControlPosition: 'topright',
@@ -130,13 +152,61 @@ $scope.points = [
 				},
 				scrollWheelZoom: false
 			},
-			markers: {},
-			events: {}
+			markers: {	},
+			events: {},
+			layers: {
+					baselayers: {
+						 osm: {
+                            name: 'OpenStreetMap',
+                            type: 'xyz',
+                            url: 'http://{s}.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png',
+                            layerOptions: {
+                                subdomains: ['a', 'b', 'c'],
+                                attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+                                continuousWorld: true
+                            }
+                        }
+					},
+					overlays: {
+						clusterGroup: {
+							name: 'clusterGroup',
+							type: 'markercluster',
+							visible: true
+						}
+					}
+                }
 				
     });
 	
 	$scope.centerMap = function() {
             $scope.center = {lat: $scope.selectedRegion.lat, lng: $scope.selectedRegion.lng, zoom: 8};
+    };
+	
+	$scope.selectCountry = function(selectedCountry) {
+	   console.log(selectedCountry);
+		leafletData.getMap().then(function(map) {
+			var latlngs = [];
+			if(selectedCountry.geometry.type == "Polygon"){
+				for (var i in selectedCountry.geometry.coordinates) {
+					var coord = selectedCountry.geometry.coordinates[i];
+					for (var j in coord) {
+						var points = coord[j];
+							latlngs.push(L.GeoJSON.coordsToLatLng(points));
+					}
+				} 
+			}
+			else {
+				for (var i in selectedCountry.geometry.coordinates) {
+					var coord = selectedCountry.geometry.coordinates[i];
+					for (var j in coord) {
+						var points = coord[j];
+						for (var k in points)
+							latlngs.push(L.GeoJSON.coordsToLatLng(points[k]));
+					}
+				} 
+			}
+			map.fitBounds(latlngs);
+		});
     };
 			
 	$scope.getMarkers();

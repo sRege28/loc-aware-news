@@ -7,6 +7,9 @@
         "animate.css": "latest",
         "angular": "latest",
         "angular-route": "latest",
-		"ui-leaflet": "latest"   		
+        "ui-leaflet": "latest",
+        "angular-sanitize": "latest",
+        "angular-ui-select": "latest",
+        "leaflet.markercluster": "latest"  	
     }
 }
