@@ -6,7 +6,7 @@ function init(){
 	
 NewsService.getCountries().then(function(res) {
 		if (res != null) {
-		   $scope.countries = res.features;
+		   $scope.countries = res[0].features;
 		   console.log($scope.countries);
 		} else {
 			console.log("Error");
@@ -207,6 +207,16 @@ $scope.points = [
 			}
 			map.fitBounds(latlngs);
 		});
+		
+		NewsService.getNewsForCountry.then(function(res) {
+			if (res != null) {
+			   $scope.points = res;
+			   console.log($scope.points);
+			} else {
+				console.log("Error");
+			}
+		});
+		
     };
 			
 	$scope.getMarkers();

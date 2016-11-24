@@ -17,7 +17,19 @@ angular.module('newsApp').service('NewsService', ['$http', function($http){
 	this.getCountries = function(){
 		 var promise = $http({
 		        method : "GET",
-		        url : "countries.json"
+		        url : "/getCountries"
+		    }).then(function(response) {
+		    	console.log(response.data);
+		        return response.data;
+		});
+		
+		return promise;
+	}
+	
+	this.getNewsForCountry = function(){
+		 var promise = $http({
+		        method : "GET",
+		        url : "/getNewsForCountry"
 		    }).then(function(response) {
 		    	console.log(response.data);
 		        return response.data;
