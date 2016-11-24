@@ -1,0 +1,54 @@
+<div class="container">
+	
+<form class="form-horizontal">
+
+	<div class="form-group">
+        <label class="col-sm-3 control-label">Select a country</label>
+        <div class="col-sm-9">
+          <div class="input-group">
+            <ui-select style="width: 300px;" allow-clear ng-model="selectedCountry" on-select="selectCountry($item)" theme="bootstrap">
+              <ui-select-match placeholder="Select or search a country in the list...">{{$select.selected.properties.name}}</ui-select-match>
+              <ui-select-choices repeat="country in countries | filter: $select.search">
+                <span ng-bind-html="country.properties.name | highlight: $select.search"></span>
+              </ui-select-choices>
+            </ui-select>
+			</div>
+        </div>
+    </div>
+	
+	<div class="form-group">
+        <label class="col-sm-3 control-label">Select a region to zoom into:</label>
+        <div class="col-sm-9">
+          <div class="input-group">
+           <select style="width: 300px;" ng-options="marker as marker.loc for marker in markers" ng-model="selectedRegion" ng-change="centerMap()">
+			</select>
+			</div>
+        </div>
+    </div>
+	  
+</form>
+	
+<leaflet defaults="defaults" lf-center="center" markers="markers" layers="layers" width="100%" height="480px"></leaflet>
+
+<!-- Modal -->
+<div class="modal fade" id="newsModal" tabindex="-1" role="dialog" aria-labelledby="newsModal" 
+	aria-hidden="true" data-keyboard="false" data-backdrop="static">
+   <div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">{{selectedNews.msg}}</h4>
+			</div>
+			<div class="modal-body">
+	  			<div class="form-group">
+	  				<div>{{selectedNews.txt}}</div>
+	  			</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal"
+					ng-click="closeModal()">Cancel</button>
+			</div>
+		</div>
+	</div>
+</div>
+	
+</div>

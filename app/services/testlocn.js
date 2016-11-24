@@ -25,7 +25,7 @@ function getAllNewsArticles()
                                                     }
                                                    else
                                                     {
-
+                                                      console.log("Done");
                                                       oneArticle.update({$set: {"coord": geodata}},null, function(err, numAff, raw)
                                                                         {
                                                                          if(err)
