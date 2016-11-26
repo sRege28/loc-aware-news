@@ -1,4 +1,4 @@
-var NewsModel = require("D:/news-socialmedia/app/models/news_model.js");
+var NewsModel = require("../model/news_model.js");
 var API = require("./api_call.js");
 var getGeocode = require("./location.js");
 

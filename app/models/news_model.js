@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 var db = require("../../config/db");
+/*
 mongoose.connect(db.url, function(err)
                  {
                    if(err)
@@ -7,16 +8,17 @@ mongoose.connect(db.url, function(err)
                       console.log(err);
                     }
                  });
+                 */
 //mongodb://localhost/news-sm
 //mongodb://admin:group13@ds145677.mlab.com:45677/newsdb
-/*
+
 mongoose.connect('mongodb://localhost/news-sm', function(err)
                  {
                    if(err)
                     {
                       console.log(err);
                     }
-                 }); */
+                 });
 
 var Schema = mongoose.Schema;
 
@@ -34,7 +36,7 @@ var newsSchema = new Schema({
   coord: {type: Array, default:[]}
  },{collection: "News"});
 
-newsSchema.index({ "locn.coordinates" : "2dsphere" });
+newsSchema.index({ "coord" : "2dsphere" });
 
 module.exports = mongoose.model('NewsModel',newsSchema);
 
