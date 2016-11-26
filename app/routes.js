@@ -1,4 +1,4 @@
-var Nerd = require('./models/nerd');
+var Countries = require('./models/countries');
 
 module.exports = function(app) {
 
@@ -8,18 +8,8 @@ module.exports = function(app) {
 
 	// frontend routes =========================================================	
 	app.get('/getCountries', function(req, res) {
-		
-		/* Nerd.find(function(err, nerds) {
-
-                // if there is an error retrieving, send the error. 
-                                // nothing after res.send(err) will execute
-                if (err)
-                    res.send(err);
-
-                res.json(nerds); // return all nerds in JSON format
-            }); */
-			
-			Nerd.find({}, function(err, nerds) {
+				
+			Countries.find({}, function(err, nerds) {
 				if (err)
                     res.send(err);
 
