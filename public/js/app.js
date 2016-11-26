@@ -1,5 +1,5 @@
 // public/js/app.js
-var newsApp = angular.module('newsApp', ['ngRoute', 'ui-leaflet','ngSanitize', 'ui.select']);
+var newsApp = angular.module('newsApp', ['ngRoute', 'ui-leaflet','ngSanitize', 'ui.select', 'ui.bootstrap']);
 newsApp.config(function($routeProvider, $httpProvider) {
 
     $routeProvider

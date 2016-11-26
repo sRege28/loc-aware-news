@@ -1,10 +1,10 @@
 <div class="container">
-	
+	<script src="https://gist.github.com/leefsmp/05d62aefa165c85e47ae.js"></script>
 <form class="form-horizontal">
 
 	<div class="form-group">
-        <label class="col-sm-3 control-label">Select a country</label>
-        <div class="col-sm-9">
+        <label class="col-sm-3 control-label">Select a country for region specific news:</label>
+        <div class="col-sm-3">
           <div class="input-group">
             <ui-select style="width: 300px;" allow-clear ng-model="selectedCountry" on-select="selectCountry($item)" theme="bootstrap">
               <ui-select-match placeholder="Select or search a country in the list...">{{$select.selected.properties.name}}</ui-select-match>
@@ -13,6 +13,12 @@
               </ui-select-choices>
             </ui-select>
 			</div>
+        </div>
+
+        <label class="col-sm-3 control-label">Or search news by keyword:</label>
+        <div class="col-sm-3">
+          <input class="form-control" id="searchNews" ng-model="searchKey" ng-keypress="searchNews($event)" 
+		  placeholder="Search..." autocomplete="off" type="text">
         </div>
     </div>
 	
@@ -50,5 +56,46 @@
 		</div>
 	</div>
 </div>
-	
+
+<!-- Modal for search -->
+<div class="modal fade" id="searchModal" tabindex="-1" role="dialog" aria-labelledby="searchModal" 
+aria-hidden="true" data-keyboard="false" data-backdrop="static">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<carousel interval="myInterval">
+				<slide ng-repeat="res in searchRes" active="point.active">
+				<div class="modal-header bg-primary">
+					<h4 class="modal-title">{{res.title}}</h4>
+				</div>
+				<div class="modal-body">
+					<div class="form-group">
+						<div>{{res.text}}</div>
+		            </div>
+		        </div>
+				<!-- <div class="carousel-caption">
+					<p>Article {{$index+1}}</p>
+				</div> -->
+				</slide>
+		    </carousel>
+<!-- 			<div class="row">
+				<div class="col-xs-1">
+				<button class="btn btn-primary" ng-click="prevPage()"><i class="glyphicon glyphicon-
+				chevron-left">P</i></button>
+				</div>
+				<div class="col-xs-2" ng-repeat="point in showThumbnails">
+					<div style="width:100%" ng-click="setActive(point.index)">{{point.title}}</div>
+				</div>
+				<div class="col-xs-1">
+				<button class="btn btn-primary" ng-click="nextPage()"><i class="glyphicon glyphicon-
+				chevron-right">N</i></button>
+				</div>
+			</div> -->
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary" data-dismiss="modal"
+					ng-click="closeSearch()">Cancel</button>
+			</div>
+		</div>
+	</div>
+</div>
+
 </div>

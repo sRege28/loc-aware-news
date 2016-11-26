@@ -10,6 +10,6 @@
         "ui-leaflet": "latest",
         "angular-sanitize": "latest",
         "angular-ui-select": "latest",
-        "leaflet.markercluster": "latest"  	
+        "leaflet.markercluster": "latest"	
     }
 }
