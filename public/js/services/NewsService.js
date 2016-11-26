@@ -1,10 +1,9 @@
 angular.module('newsApp').service('NewsService', ['$http', function($http){
 	
 	 this.getNewsBySearchKey = function(searchKey){
-		var myurl = "getNewsBySearchKey";
 		 var promise = $http({
 		        method : "GET",
-		        url : myurl,
+		        url : "/getNewsBySearchKey",
 		        params: {key:searchKey}
 		    }).then(function(response) {
 		    	console.log(response.data);
@@ -26,10 +25,11 @@ angular.module('newsApp').service('NewsService', ['$http', function($http){
 		return promise;
 	}
 	
-	this.getNewsForCountry = function(){
+	this.getNewsForCountry = function(geo){
 		 var promise = $http({
 		        method : "GET",
-		        url : "/getNewsForCountry"
+		        url : "/getNewsForCountry",
+				params: {geometry:geo}
 		    }).then(function(response) {
 		    	console.log(response.data);
 		        return response.data;
