@@ -254,7 +254,7 @@ angular.module('newsApp').controller('NewsController', [ '$scope','leafletData',
 			map.fitBounds(latlngs);
 		});
 		
-		NewsService.getNewsForCountry.then(function(res) {
+		NewsService.getNewsForCountry(selectedCountry.geometry).then(function(res) {
 			if (res != null) {
 			   $scope.points = res;
 			   console.log($scope.points);
