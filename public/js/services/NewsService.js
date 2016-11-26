@@ -26,9 +26,10 @@ angular.module('newsApp').service('NewsService', ['$http', function($http){
 	}
 	
 	this.getNewsForCountry = function(geo){
+		
 		 var promise = $http({
-		        method : "GET",
-		        url : "/getNewsForCountry",
+		        method : "POST",
+		        url : "/getNewsInCountry",
 				params: {geometry:geo}
 		    }).then(function(response) {
 		    	console.log(response.data);

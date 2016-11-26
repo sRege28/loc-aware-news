@@ -42,7 +42,7 @@ require('./app/routes')(app); // configure our routes
 app.listen(port);               
 
 // shoutout to the user                     
-console.log('Magic happens on port ' + port);
+console.log('Started Heads Up News website on port ' + port);
 
 // expose app           
 exports = module.exports = app;                         

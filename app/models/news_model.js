@@ -1,25 +1,4 @@
 var mongoose = require('mongoose');
-var db = require("../../config/db");
-/*
-mongoose.connect(db.url, function(err)
-                 {
-                   if(err)
-                    {
-                      console.log(err);
-                    }
-                 });
-                 */
-//mongodb://localhost/news-sm
-//mongodb://admin:group13@ds145677.mlab.com:45677/newsdb
-
-mongoose.connect('mongodb://localhost/news-sm', function(err)
-                 {
-                   if(err)
-                    {
-                      console.log(err);
-                    }
-                 });
-
 var Schema = mongoose.Schema;
 
 //var locnSchema = new Schema({name: String, coordinates:[Number]});
@@ -38,6 +17,10 @@ var newsSchema = new Schema({
 
 newsSchema.index({ "coord" : "2dsphere" });
 
-module.exports = mongoose.model('NewsModel',newsSchema);
+// the schema is useless so far
+// we need to create a model using it
+var News = mongoose.model('NewsModel', newsSchema);
 
+// make this available to our users in our Node applications
+module.exports = News;
 

@@ -1,5 +1,4 @@
 var NewsModel = require("../models/news_model.js");
-var Country = require("../models/countries.js");
 var geoValid = require("geojson-validation");
 
 function getNewsInCountry()
