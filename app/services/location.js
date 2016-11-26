@@ -14,7 +14,8 @@ return Httpreq.responseText;
  	var len = arr.length;
  	var json_obj = new Array(len)
  	for (var i = 0; i < len; i++) {
- 		str = Get("https://maps.googleapis.com/maps/api/geocode/json?address="+ arr[i] + "&key=AIzaSyBscboAr0OLaQMwqtlKXCUBPLdB-fp4pw4")
+ 		str = Get("https://maps.googleapis.com/maps/api/geocode/json?address="+ arr[i] + "&key=AIzaSyCd6c7XfQB5KcKcOqhaYVUzaaH0UZzsBi4")        //&key=AIzaSyBscboAr0OLaQMwqtlKXCUBPLdB-fp4pw4
+
     	json_obj[i] = JSON.parse(str);
     	//console.log(str);
     	//console.log(json_obj[i]);
