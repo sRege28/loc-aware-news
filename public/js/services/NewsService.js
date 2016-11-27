@@ -3,8 +3,8 @@ angular.module('newsApp').service('NewsService', ['$http', function($http){
 	 this.getNewsBySearchKey = function(searchKey){
 		 var promise = $http({
 		        method : "GET",
-		        url : "/getNewsBySearchKey",
-		        params: {key:searchKey}
+		        url : "/getNewsByKeyword",
+		        params: {keyword:searchKey}
 		    }).then(function(response) {
 		    	console.log(response.data);
 		        return response.data;
