@@ -31,17 +31,19 @@
 	aria-hidden="true" data-keyboard="false" data-backdrop="static">
    <div class="modal-dialog">
 		<div class="modal-content">
-			<div class="modal-header">
+			<div class="modal-header  bg-primary">
 				<h4 class="modal-title">{{selectedNews.msg}}</h4>
 			</div>
 			<div class="modal-body">
 	  			<div class="form-group">
-	  				<div>{{selectedNews.txt}}</div>
+					<div>
+						<p ng-bind-html="selectedNews.txt"></p>
+					</div>
 	  			</div>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal"
-					ng-click="closeModal()">Cancel</button>
+				<button type="button" class="btn btn-primary" data-dismiss="modal"
+					ng-click="closeModal()">Close</button>
 			</div>
 		</div>
 	</div>
@@ -59,7 +61,9 @@ aria-hidden="true" data-keyboard="false" data-backdrop="static">
 				</div>
 				<div class="modal-body">
 					<div class="form-group">
-						<div>{{res.text}}</div>
+						<div>
+							<p ng-bind-html="res.text"></p>
+						</div>
 		            </div>
 		        </div>
 				<!-- <div class="carousel-caption">
@@ -82,7 +86,7 @@ aria-hidden="true" data-keyboard="false" data-backdrop="static">
 			</div> -->
 			<div class="modal-footer">
 				<button type="button" class="btn btn-primary" data-dismiss="modal"
-					ng-click="closeSearch()">Cancel</button>
+					ng-click="closeSearch()">Close</button>
 			</div>
 		</div>
 	</div>

@@ -6,7 +6,7 @@ angular.module('newsApp').service('NewsService', ['$http', function($http){
 		        url : "/getNewsBySearchKey",
 		        params: {key:searchKey}
 		    }).then(function(response) {
-		    	console.log(response.data);
+		    	//console.log(response.data);
 		        return response.data;
 		    });
 		 
