@@ -32,24 +32,17 @@ module.exports = function(app) {
 			});
 	});
 
-	app.post('/getNewsByKeyword', function(req, res){
+	app.get('/getNewsByKeyword', function(req, res){
 
-          function getNewsByKeyword()
-            {
-             var keyword = req
+		NewsModel.find({ $text : { $search : req.query.keyword} }
+			,function(err, docs){
+				if(err)
+					res.send(err);
+				else
+					res.json(docs);
+		});
 
-             NewsModel.find({ $text : { $search : keyword} },function(err, docs)
-                                                                  {
-                                                                    if(err)
-                                                                      res.send(err);
-                                                                    else
-                                                                      res.send(docs);
-
-                                                                  });
-
-           }
-
- });
+	});
 
 	// route to handle all angular requests
 	app.get('*', function(req, res) {

@@ -54,11 +54,9 @@ angular.module('newsApp').controller('NewsController', [ '$scope','leafletData',
 		if (keyEvent.which === 13){
 			NewsService.getNewsBySearchKey($scope.searchKey).then(function(res) {
 				if (res != null) {
-				   $scope.searchRes = $scope.points; //remove later
+				   $scope.searchRes = res;
 				   $('#searchModal').modal('show');
 				} else {
-					$scope.searchRes = $scope.points; //remove later
-					$('#searchModal').modal('show'); // remove later
 					console.log("Error");
 				}
 			});
