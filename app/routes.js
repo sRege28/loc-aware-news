@@ -7,9 +7,9 @@ module.exports = function(app) {
 	// handle things like api calls
 	// authentication routes
 
-	// frontend routes =========================================================	
+	// frontend routes =========================================================
 	app.get('/getCountries', function(req, res) {
-				
+
 			Countries.find({}, function(err, nerds) {
 				if (err)
                     res.send(err);
@@ -17,16 +17,16 @@ module.exports = function(app) {
                 res.json(nerds); // return all nerds in JSON format
 			});
 	});
-	
+
 	app.post('/getNewsInCountry', function(req, res) {
-				
+
 		NewsModel.find( {
     location:{
         $geoWithin:{
             $geometry: JSON.parse(req.query.geometry)
         }
     }
-} /* { coord: { $geoWithin: 
+} /* { coord: { $geoWithin:
 			{ $geometry: JSON.parse(req.query.geometry) }}} */,function(err, docs)
 				  {
 					if(err)
@@ -36,8 +36,26 @@ module.exports = function(app) {
 
 			});
 	});
-	
-	
+
+	app.post('/getNewsByKeyword', function(req, res){
+
+          function getNewsByKeyword()
+            {
+             var keyword = req
+
+             NewsModel.find({ $text : { $search : keyword} },function(err, docs)
+                                                                  {
+                                                                    if(err)
+                                                                      res.send(err);
+                                                                    else
+                                                                      res.send(docs);
+
+                                                                  });
+
+           }
+
+ });
+
 	// route to handle all angular requests
 	app.get('*', function(req, res) {
 		res.sendfile('./public/views/index.html');

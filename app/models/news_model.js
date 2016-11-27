@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-
+mongoose.connect('mongodb://admin:group13@ds145677.mlab.com:45677/newsdb');
 //var locnSchema = new Schema({name: String, coordinates:[Number]});
 
 var newsSchema = new Schema({
@@ -16,6 +16,8 @@ var newsSchema = new Schema({
  },{collection: "News"});
 
 newsSchema.index({ "coord" : "2dsphere" });
+newsSchema.index({"title" : "text"});
+
 
 // the schema is useless so far
 // we need to create a model using it
