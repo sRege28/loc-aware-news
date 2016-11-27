@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 var db = require("../../config/db");
-mongoose.connect(db.url, function(err)
+mongoose.connect("mongodb://localhost/test", function(err)
+//mongoose.connect(db.url, function(err)
                  {
                    if(err)
                     {
@@ -20,7 +21,8 @@ var newsSchema = new Schema({
   text: String,
   tags: [String],
   locn: {type: Array, default:[]},
-  coord: {type: Array, default:[]}
+  coord: {type: Array, default:[]},
+  country: String
  },{collection: "News"});
 
 newsSchema.index({ "coord" : "2dsphere" });
