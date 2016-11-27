@@ -7,6 +7,7 @@ var app            = express();
 var bodyParser     = require('body-parser');
 var methodOverride = require('method-override');
 var mongoose = require('mongoose');
+//var cron = require('cron');
 
 // configuration ===========================================
     
@@ -43,7 +44,14 @@ require('./app/routes')(app); // configure our routes
 app.listen(port);               
 
 // shoutout to the user                     
-console.log('Magic happens on port ' + port);
+console.log('Started Heads Up News website on port ' + port);
 
 // expose app           
-exports = module.exports = app;                         
+exports = module.exports = app;     
+
+/* app.on('listening', function () {
+    // call cron
+	var job = new cron.CronJob('* * * * *', function() {  
+				console.log('Function executed!');
+			}, null, true);
+}); */                    

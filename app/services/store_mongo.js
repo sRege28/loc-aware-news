@@ -1,6 +1,6 @@
-var NewsModel = require("../models/news_model.js");
-var API = require("./api_call.js");
-var getGeocode = require("./location.js");
+var NewsModel = require("./model/news_model");
+var API = require("./api_call");
+var getGeocode = require("./location");
 
 function saveData(err,data)
  {
