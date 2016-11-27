@@ -18,6 +18,16 @@ angular.module('newsApp').controller('NewsController', [ '$scope','leafletData',
 					console.log("Error");
 				}
 		});
+		
+		NewsService.getTrendingNews().then(function(res) {
+				if (res != null) {
+				   $scope.trending = res;
+				   console.log("Trending:");
+				   console.log(res);
+				} else {
+					console.log("Error trending news");
+				}
+		});	
 	}
 
 	init();
@@ -76,7 +86,7 @@ angular.module('newsApp').controller('NewsController', [ '$scope','leafletData',
 			var lonv = cords[0];
 			var latv = cords[1];
 			var id = value._id;
-			markArray[id] = {lat: latv, lng:lonv, focus:true, draggable:false, loc: value.locn[0], msg:value.title, txt:value.text, layer:'clusterGroup', icon : i};
+			markArray[id] = {lat: latv, lng:lonv, focus:true, draggable:false, loc: value.locn[0], title:value.title, text:value.text, layer:'clusterGroup', icon : i};
 		});
 		$scope.markers = markArray;
 		console.log("markers:")
@@ -168,7 +178,7 @@ angular.module('newsApp').controller('NewsController', [ '$scope','leafletData',
 			
 	$scope.$on("leafletDirectiveMarker.mouseover", function(event, args){
 		var leafEvent = args.leafletEvent;
-		leafEvent.target.bindPopup(leafEvent.target.options.msg + " news");
+		leafEvent.target.bindPopup(leafEvent.target.options.title);
 		leafEvent.target.openPopup();
 	});
 	
@@ -182,5 +192,10 @@ angular.module('newsApp').controller('NewsController', [ '$scope','leafletData',
 		$scope.selectedNews = leafEvent.target.options;
 		$('#newsModal').modal('show');
 	});
+	
+	$scope.showTrend = function(item){
+		$scope.selectedNews = item;
+		$('#newsModal').modal('show');
+	}
 
 }]);

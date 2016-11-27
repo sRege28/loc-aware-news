@@ -1,7 +1,6 @@
 <div class="container">
-	<!-- <script src="https://gist.github.com/leefsmp/05d62aefa165c85e47ae.js"></script> -->
+<!-- <script src="https://gist.github.com/leefsmp/05d62aefa165c85e47ae.js"></script> -->
 <form class="form-horizontal">
-
 	<div class="form-group">
         <label class="col-sm-3 control-label">Select a country for region specific news:</label>
         <div class="col-sm-3">
@@ -23,8 +22,26 @@
     </div>
 	  
 </form>
-	
+</div>
+
+<div style="padding-left:2%">
+
+<div class="col-sm-9">
 <leaflet defaults="defaults" lf-center="center" markers="markers" layers="layers" width="100%" height="480px"></leaflet>
+</div>
+
+<div class="col-sm-3">
+ <div class="panel panel-primary">
+      <div class="panel-heading">Top 10 latest news articles</div>
+		  <div class="panel-body">
+			  <ul class="nav nav-stacked" ng-repeat="news in trending">
+				<li><a href="" ng-click="showTrend(news)">{{news.title}}</a></li>
+			  </ul>
+	  </div>
+ </div>
+</div>
+
+</div>
 
 <!-- Modal -->
 <div class="modal fade" id="newsModal" tabindex="-1" role="dialog" aria-labelledby="newsModal" 
@@ -32,12 +49,12 @@
    <div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header  bg-primary">
-				<h4 class="modal-title">{{selectedNews.msg}}</h4>
+				<h4 class="modal-title">{{selectedNews.title}}</h4>
 			</div>
 			<div class="modal-body">
 	  			<div class="form-group">
 					<div>
-						<p ng-bind-html="selectedNews.txt"></p>
+						<p ng-bind-html="selectedNews.text"></p>
 					</div>
 	  			</div>
 			</div>
@@ -90,6 +107,4 @@ aria-hidden="true" data-keyboard="false" data-backdrop="static">
 			</div>
 		</div>
 	</div>
-</div>
-
 </div>

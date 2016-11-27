@@ -43,6 +43,19 @@ module.exports = function(app) {
 		});
 
 	});
+	
+	app.get('/getTrendingNews', function(req, res){
+
+		NewsModel.find({}).sort({ published: -1 }).limit(10).exec(
+			function(err, docs){
+				if(err)
+					res.send(err);
+				else
+					res.json(docs);				
+		});
+
+	});
+
 
 	// route to handle all angular requests
 	app.get('*', function(req, res) {
