@@ -1,5 +1,5 @@
 <div class="container">
-	<script src="https://gist.github.com/leefsmp/05d62aefa165c85e47ae.js"></script>
+	<!-- <script src="https://gist.github.com/leefsmp/05d62aefa165c85e47ae.js"></script> -->
 <form class="form-horizontal">
 
 	<div class="form-group">
@@ -19,16 +19,6 @@
         <div class="col-sm-3">
           <input class="form-control" id="searchNews" ng-model="searchKey" ng-keypress="searchNews($event)" 
 		  placeholder="Search..." autocomplete="off" type="text">
-        </div>
-    </div>
-	
-	<div class="form-group">
-        <label class="col-sm-3 control-label">Select a region to zoom into:</label>
-        <div class="col-sm-9">
-          <div class="input-group">
-           <select style="width: 300px;" ng-options="marker as marker.loc for marker in markers" ng-model="selectedRegion" ng-change="centerMap()">
-			</select>
-			</div>
         </div>
     </div>
 	  

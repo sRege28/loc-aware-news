@@ -5,8 +5,7 @@ var Schema = mongoose.Schema;
 
 // create a schema
 var countriesSchema = new Schema({
-  name: String
-  
+  type: String
 });
 
 // the schema is useless so far

@@ -20,14 +20,9 @@ module.exports = function(app) {
 
 	app.post('/getNewsInCountry', function(req, res) {
 
-		NewsModel.find( {
-    location:{
-        $geoWithin:{
-            $geometry: JSON.parse(req.query.geometry)
-        }
-    }
-} /* { coord: { $geoWithin:
-			{ $geometry: JSON.parse(req.query.geometry) }}} */,function(err, docs)
+		NewsModel.find(
+         { coord: { $geoWithin:
+			{ $geometry: JSON.parse(req.query.geometry) }}},function(err, docs)
 				  {
 					if(err)
 						res.send(err);
