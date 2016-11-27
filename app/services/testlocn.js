@@ -1,4 +1,5 @@
-var NewsModel = require("./models/news_model");
+//var NewsModel = require("./models/news_model");
+var NewsModel = require("../models/news_model");
 var API = require("./api_call");
 var getGeocode = require("./location");
 
@@ -24,8 +25,10 @@ function getAllNewsArticles()
                                                     }
                                                    else
                                                     {
+                                                      var coor = geodata.coordinates;
+                                                      var country = geodata.country;
                                                       console.log("Done");
-                                                      oneArticle.update({$set: {"coord": geodata}},null, function(err, numAff, raw)
+                                                      oneArticle.update({$set: {"coord": coor,"country":country}},null, function(err, numAff, raw)
                                                                         {
                                                                          if(err)
                                                                             {
