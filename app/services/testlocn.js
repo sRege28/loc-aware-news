@@ -2,7 +2,6 @@ var NewsModel = require("./models/news_model");
 var API = require("./api_call");
 var getGeocode = require("./location");
 
-
 function getAllNewsArticles()
 {
    NewsModel.find({}, function(err,data)
