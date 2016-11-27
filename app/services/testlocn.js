@@ -1,4 +1,4 @@
-var NewsModel = require("../models/news_model.js");
+Z var NewsModel = require("../models/news_model.js");
 var API = require("./api_call.js");
 var getGeocode = require("./location.js");
 
