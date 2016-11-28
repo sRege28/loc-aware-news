@@ -44,7 +44,7 @@ require('./app/routes')(app); // configure our routes
 <<<<<<< HEAD
 app.listen(port);
 =======
-app.listen(port);              
+app.listen(port);
 >>>>>>> 7cd6051a3658de1c97fc4f761fd2059e47b3c1b0
 
 // shoutout to the user
@@ -53,22 +53,10 @@ console.log('Started Heads Up News website on port ' + port);
 // expose app
 exports = module.exports = app;
 
-<<<<<<< HEAD
-/* app.on('listening', function () {
-    // call cron
-	var job = new cron.CronJob('* * * * *', function() {
-				console.log('Function executed!');
-			}, null, true);
-}); */
-=======
-//api.getNews();
-//social.storeTwitterData();
-
-var job = new cron.CronJob("0 0 * * *", function() { 
+var job = new cron.CronJob("0 0 * * *", function() {
 	api.getNews();
 	social.storeTwitterData();
 	console.log('Functions executed!');
 }, null, true);
 job.start();
-     
->>>>>>> 7cd6051a3658de1c97fc4f761fd2059e47b3c1b0
+
