@@ -41,11 +41,13 @@ require('./app/routes')(app); // configure our routes
 
 // start app ===============================================
 // startup our app at http://localhost:8080
-<<<<<<< HEAD
 app.listen(port);
+<<<<<<< HEAD
 =======
 app.listen(port);
 >>>>>>> 7cd6051a3658de1c97fc4f761fd2059e47b3c1b0
+=======
+>>>>>>> 127a91c2758488fa9473ea6216903f8029cdbeb1
 
 // shoutout to the user
 console.log('Started Heads Up News website on port ' + port);
@@ -53,10 +55,21 @@ console.log('Started Heads Up News website on port ' + port);
 // expose app
 exports = module.exports = app;
 
+<<<<<<< HEAD
 var job = new cron.CronJob("0 0 * * *", function() {
+=======
+//api.getNews();
+//social.storeTwitterData();
+
+var job = new cron.CronJob("0 0 * * *", function() { 
+>>>>>>> 127a91c2758488fa9473ea6216903f8029cdbeb1
 	api.getNews();
 	social.storeTwitterData();
 	console.log('Functions executed!');
 }, null, true);
+<<<<<<< HEAD
 job.start();
 
+=======
+job.start();
+>>>>>>> 127a91c2758488fa9473ea6216903f8029cdbeb1

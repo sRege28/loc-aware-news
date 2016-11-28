@@ -57,7 +57,7 @@
 						<p ng-bind-html="selectedNews.text"></p>
 					</div>
 	  			</div>
-				<div ng-repeat="tweet in tweets" class="form-group">
+				<div ng-repeat="tweet in selectedNews.tweets" class="form-group">
 					<div>
 						{{tweet.text}}
 					</div>
@@ -98,19 +98,6 @@ aria-hidden="true" data-keyboard="false" data-backdrop="static">
 				</div> -->
 				</slide>
 		    </carousel>
-<!-- 			<div class="row">
-				<div class="col-xs-1">
-				<button class="btn btn-primary" ng-click="prevPage()"><i class="glyphicon glyphicon-
-				chevron-left">P</i></button>
-				</div>
-				<div class="col-xs-2" ng-repeat="point in showThumbnails">
-					<div style="width:100%" ng-click="setActive(point.index)">{{point.title}}</div>
-				</div>
-				<div class="col-xs-1">
-				<button class="btn btn-primary" ng-click="nextPage()"><i class="glyphicon glyphicon-
-				chevron-right">N</i></button>
-				</div>
-			</div> -->
 			<div class="modal-footer">
 				<button type="button" class="btn btn-primary" data-dismiss="modal"
 					ng-click="closeSearch()">Close</button>

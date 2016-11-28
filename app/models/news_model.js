@@ -1,14 +1,5 @@
 var mongoose = require('mongoose');
 var db = require("../../config/db");
-//mongoose.connect("mongodb://localhost/test", function(err)
-
-// mongoose.connect(db.url, function(err)
-//                  {
-//                    if(err)
-//                     {
-//                       console.log(err);
-//                     }
-//                  })
 var Schema = mongoose.Schema;
 //mongoose.connect('mongodb://admin:group13@ds145677.mlab.com:45677/newsdb');
 //var locnSchema = new Schema({name: String, coordinates:[Number]});

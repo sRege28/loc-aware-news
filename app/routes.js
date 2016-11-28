@@ -89,9 +89,10 @@ module.exports = function(app) {
 	});
 
     app.post('/getNewsAndTweetsInCountry', function(req,res)
-             {
-                 newsService(req,res);
-             });
+	{
+		newsService.getNews(req,res);
+	});
+	
 	// route to handle all angular requests
 	app.get('*', function(req, res) {
 		res.sendfile('./public/views/index.html');

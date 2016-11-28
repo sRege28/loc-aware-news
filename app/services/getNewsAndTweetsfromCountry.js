@@ -1,58 +1,56 @@
 var NewsModel = require("../models/news_model");
 var Tweets = require("../models/twitter_model");
+var respObj = [];
 
-
-function getNews(req,res,callback)
+var getNews = function getNews(req,res)
 {
-   var country = req.query;
+   var country = JSON.parse(req.query.geometry);
 
    NewsModel.find(
-         { coord: { $geoWithin:
-			{ $geometry: country}}},function(err, docs)
-				  {
+	 { coord: { $geoWithin:
+		{ $geometry: country}}},function(err, docs){
 
-					if(err)
-                        callback(res,err,null);
-					else
-                        {
-                          callback(res, null, docs);
-                        }
+			if(err)
+				getTweets(res,err,null);
+			else
+			{
+			  getTweets(res, null, docs);
+			}
 
-			});
-}
+		});
+};
 
-//news_article_ref: {$in : news._id}
-
-function getTweets(res, err, news)
+var getTweets = function getTweets(res, err, news)
 {
    if(err)
      res.send(err,null);
    else
     {
       var newsAndTweets=[];
-      news.forEach(function(article)
-                   {  var obj;
-                      Tweets.find({news_article_ref: {$eq : article.id}}).exec(function(err,data)
-                                                                    {
-                                                                      if(err) res.send(err);
-                                                                      else
-                                                                    {
-                                                                      obj.article = article;
-                                                                      obj.tweets = data;
-                                                                      res.send(obj);
-                                                                    }});
-
-
-
-                   });
+      news.forEach(function(article, i)
+	   {  
+		  var obj = {};
+		  console.log(article.id);
+		  Tweets.find({news_article_ref: {$eq : article.id}}).exec(function(err,data)
+						{
+						  if(err) res.send(err);
+						  else
+						{
+						  obj.article = article;
+						  obj.tweets = data;
+						  respObj.push(obj);
+						  obj = {};
+						  console.log(data);
+						  if(i == news.length-1){
+							  res.send(respObj);
+						  }
+						}});
+	   });
    }
-}
+};
+
 module.exports ={
-function getNewsAndTweets(req, res)
- {
 
-   getNews(req, res, getTweets);
-
- }
+	getNews : getNews
 
 }
