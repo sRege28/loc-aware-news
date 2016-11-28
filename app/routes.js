@@ -44,7 +44,20 @@ module.exports = function(app) {
 		});
 
 	});
-	
+
+	app.get('/getNewsAndTweetsByKeyword',function(req, res)
+         {
+           NewsModel.find({ $text : { $search : req.query.keyword} }
+			,function(err, docs){
+				if(err)
+					res.send(err);
+				else
+					{
+					  newsService.getTweets(res,null,docs);
+					}
+             });
+         });
+
 	app.get('/getTrendingNews', function(req, res){
 
 		NewsModel.find({}).sort({ published: -1 }).limit(10).exec(
@@ -52,11 +65,22 @@ module.exports = function(app) {
 				if(err)
 					res.send(err);
 				else
-					res.json(docs);				
+					res.json(docs);
 		});
 
 	});
 
+	app.get('/getTrendingNewsAndTweets', function(req, res){
+
+		NewsModel.find({}).sort({ published: -1 }).limit(10).exec(
+			function(err, docs){
+				if(err)
+					res.send(err);
+				else
+					newsService.getTweets(res,null,docs);
+		});
+
+	});
 
 	app.get('/getCountryVsNewsCount', function(req, res){
 
@@ -92,7 +116,7 @@ module.exports = function(app) {
 	{
 		newsService.getNews(req,res);
 	});
-	
+
 	// route to handle all angular requests
 	app.get('*', function(req, res) {
 		res.sendfile('./public/views/index.html');

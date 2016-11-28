@@ -28,7 +28,7 @@ var getTweets = function getTweets(res, err, news)
     {
       var newsAndTweets=[];
       news.forEach(function(article, i)
-	   {  
+	   {
 		  var obj = {};
 		  console.log(article.id);
 		  Tweets.find({news_article_ref: {$eq : article.id}}).exec(function(err,data)
@@ -51,6 +51,7 @@ var getTweets = function getTweets(res, err, news)
 
 module.exports ={
 
-	getNews : getNews
+	getNews : getNews,
+	getTweets: getTweets
 
 }
