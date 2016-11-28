@@ -2,13 +2,14 @@ var mongoose = require('mongoose');
 var NewsModel = require("./news_model.js");
 var db = require("../../config/db");
 //mongoose.connect("mongodb://localhost/test", function(err)
-mongoose.connect(db.url, function(err)
-                 {
-                   if(err)
-                    {
-                      console.log("Error in twitter model : " + err);
-                    }
-                 });
+// mongoose.connect(db.url, function(err)
+//                  {
+//                    if(err)
+//                     {
+//                       console.log("Error in twitter model : " + err);
+//                     }
+//                  });
+
 console.log("successfully connected")
 //mongodb://localhost/news-sm
 //mongodb://admin:group13@ds145677.mlab.com:45677/newsdb
@@ -25,6 +26,6 @@ var twitterSchema = new Schema({
   retweet_count:Number,
   favorite_count: Number,
   news_article_ref: {type:Schema.Types.ObjectId, ref: 'NewsModel'}
- },{collection: "Twitter"});
+ },{collection: "twitter"});
 
 module.exports = mongoose.model('TwitterModel',twitterSchema);

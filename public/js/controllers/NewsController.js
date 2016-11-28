@@ -10,7 +10,7 @@ angular.module('newsApp').controller('NewsController', [ '$scope','leafletData',
 	$scope.selectedNews = {};
 		
 	function init(){
-		NewsService.getCountries().then(function(res) {
+		NewsService.countryVsNewsCount().then(function(res) {
 				if (res != null) {
 				   $scope.countries = res[0].features;
 				   //console.log($scope.countries);

@@ -1,13 +1,14 @@
 var mongoose = require('mongoose');
 var db = require("../../config/db");
-mongoose.connect("mongodb://localhost/test", function(err)
-//mongoose.connect(db.url, function(err)
-                 {
-                   if(err)
-                    {
-                      console.log(err);
-                    }
-                 });
+//mongoose.connect("mongodb://localhost/test", function(err)
+
+// mongoose.connect(db.url, function(err)
+//                  {
+//                    if(err)
+//                     {
+//                       console.log(err);
+//                     }
+//                  });
 
 var Schema = mongoose.Schema;
 //mongoose.connect('mongodb://admin:group13@ds145677.mlab.com:45677/newsdb');
@@ -23,7 +24,7 @@ var newsSchema = new Schema({
   locn: {type: Array, default:[]},
   coord: {type: Array, default:[]},
   country: String
- },{collection: "News"});
+ },{collection: "news"});
 
 newsSchema.index({ "coord" : "2dsphere" });
 newsSchema.index({"title" : "text"});
@@ -31,7 +32,7 @@ newsSchema.index({"title" : "text"});
 
 // the schema is useless so far
 // we need to create a model using it
-var News = mongoose.model('NewsModel', newsSchema);
+var News = mongoose.model('newsModel', newsSchema);
 
 // make this available to our users in our Node applications
 module.exports = News;
