@@ -1,5 +1,6 @@
 var Countries = require('./models/countries');
 var NewsModel = require("./models/news_model");
+var newsService = require("./services/getNewsAndTweetsfromCountry");
 
 module.exports = function(app) {
 
@@ -44,10 +45,10 @@ module.exports = function(app) {
 
 	});
 
-
-
-
-
+    app.post('/getNewsAndTweetsInCountry', function(req,res)
+             {
+                 newsService(req,res);
+             });
 	// route to handle all angular requests
 	app.get('*', function(req, res) {
 		res.sendfile('./public/views/index.html');

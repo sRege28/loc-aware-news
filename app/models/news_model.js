@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 var db = require("../../config/db");
-mongoose.connect("mongodb://localhost/test", function(err)
-//mongoose.connect(db.url, function(err)
+//mongoose.connect("mongodb://localhost/test", function(err)
+mongoose.connect(db.url, function(err)
                  {
                    if(err)
                     {
@@ -22,8 +22,9 @@ var newsSchema = new Schema({
   tags: [String],
   locn: {type: Array, default:[]},
   coord: {type: Array, default:[]},
-  country: String
- },{collection: "News"});
+  country: String,
+  social_media :{type: Array, default:[]}
+ },{collection: "news"});
 
 newsSchema.index({ "coord" : "2dsphere" });
 newsSchema.index({"title" : "text"});
