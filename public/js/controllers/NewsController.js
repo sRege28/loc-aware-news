@@ -1,10 +1,7 @@
 angular.module('newsApp').controller('NewsController', [ '$scope','leafletData', 'NewsService', function($scope, leafletData, NewsService) {
 
 	$scope.countries = [];
-	$scope.myInterval = 10000;
-	/* $scope.thumbnailSize = 5;
-	$scope.thumbnailPage = 1;
-	 */
+	$scope.myInterval = 6000;
 	$scope.points = [];
 	$scope.showModal = false;
 	$scope.selectedNews = {};
@@ -35,26 +32,6 @@ angular.module('newsApp').controller('NewsController', [ '$scope','leafletData',
 	$scope.closeModal = function(){
 		$('#newsModal').modal('hide');
 	}
-	
-	/* $scope.prevPage = function(){
-		if ($scope.thumbnailPage > 1){
-		  $scope.thumbnailPage--;
-		}
-		$scope.showThumbnails = $scope.points.slice(($scope.thumbnailPage-1)*$scope.thumbnailSize,$scope.thumbnailPage*$scope.thumbnailSize);
-	  }
-	  
-	  $scope.nextPage = function(){
-		if ($scope.thumbnailPage <= Math.floor($scope.points.length/$scope.thumbnailSize)){
-		  $scope.thumbnailPage++;
-		}
-		$scope.showThumbnails = $scope.points.slice(($scope.thumbnailPage-1)*$scope.thumbnailSize,$scope.thumbnailPage*$scope.thumbnailSize);
-	}
-
-	$scope.showThumbnails = $scope.points.slice(($scope.thumbnailPage-1)*$scope.thumbnailSize,$scope.thumbnailPage*$scope.thumbnailSize);
-
-	 $scope.setActive = function(idx) {
-		$scope.points[idx].active=true;
-	  } */
 	
 	$scope.closeSearch = function(){
 		$('#searchModal').modal('hide');
