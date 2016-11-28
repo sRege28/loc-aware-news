@@ -8,6 +8,7 @@ var methodOverride = require('method-override');
 var mongoose = require('mongoose');
 var cron = require('cron');
 var api = require('./app/services/pollForNews')
+var social = require('./app/services/pollForTweets')
 // configuration ===========================================
     
 // config files
@@ -48,9 +49,13 @@ console.log('Started Heads Up News website on port ' + port);
 // expose app           
 exports = module.exports = app;     
 
-var job = new cron.CronJob("* * * * *", function() { 
+//api.getNews();
+//social.storeTwitterData();
+
+var job = new cron.CronJob("0 0 * * *", function() { 
 	api.getNews();
-	console.log('Function executed!');
+	social.storeTwitterData();
+	console.log('Functions executed!');
 }, null, true);
 job.start();
      

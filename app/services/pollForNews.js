@@ -106,13 +106,14 @@ function Get(yourUrl){
 
 var getLocation = function getLocation(arr,callback){
 
- 	var len = arr.length;
- 	var json_obj = new Array(len)
+ 	console.log("Getting location");
+	var len = arr.length;
+ 	var json_obj = new Array(len);
+	var apikey = "AIzaSyCd6c7XfQB5KcKcOqhaYVUzaaH0UZzsBi4";
+	apikey = "AIzaSyBscboAr0OLaQMwqtlKXCUBPLdB-fp4pw4";
 
  	for (var i = 0; i < len; i++) {
- 		str = Get("https://maps.googleapis.com/maps/api/geocode/json?address="+ arr[i] + "&key=AIzaSyCd6c7XfQB5KcKcOqhaYVUzaaH0UZzsBi4")
-        //&key=AIzaSyBscboAr0OLaQMwqtlKXCUBPLdB-fp4pw4
-
+ 		str = Get("https://maps.googleapis.com/maps/api/geocode/json?address="+ arr[i] + "&key=" + apikey);
     	json_obj[i] = JSON.parse(str);
 	}
 
@@ -137,7 +138,7 @@ var getBestCoordinates = function getBestCoordinates(json) {
         if(x.results[0] === undefined || x.results[0]=== null)
         {
           // Cannot parse the field for some reason
-          console.log("blah error! %j", x);
+          console.log("error! %j", x);
           continue;
         }
  		var type = x.results[0].types[0];
@@ -180,7 +181,3 @@ module.exports = {
 	getNews : getNews
 	
 };
-
-
-
-
