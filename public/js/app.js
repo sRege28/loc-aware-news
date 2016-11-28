@@ -10,10 +10,10 @@ newsApp.config(function($routeProvider, $httpProvider) {
             controller: 'NewsController'
         })
         // news page that will use the NewsController
-        /* .when('/news', {
-            templateUrl: 'views/news.html',
-            controller: 'NewsController'
-        }) */.otherwise({
+         .when('/analytics', {
+            templateUrl: 'views/analytics.html',
+            controller: 'AnalyticsController'
+        }) .otherwise({
 			redirectTo: '/'
 		});
 

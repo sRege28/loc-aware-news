@@ -10,7 +10,7 @@ angular.module('newsApp').controller('NewsController', [ '$scope','leafletData',
 	$scope.selectedNews = {};
 		
 	function init(){
-		NewsService.getCountries().then(function(res) {
+		NewsService.countryVsNewsCount().then(function(res) {
 				if (res != null) {
 				   $scope.countries = res[0].features;
 				   //console.log($scope.countries);
@@ -18,6 +18,16 @@ angular.module('newsApp').controller('NewsController', [ '$scope','leafletData',
 					console.log("Error");
 				}
 		});
+		
+		NewsService.getTrendingNews().then(function(res) {
+				if (res != null) {
+				   $scope.trending = res;
+				   console.log("Trending:");
+				   console.log(res);
+				} else {
+					console.log("Error trending news");
+				}
+		});	
 	}
 
 	init();
@@ -76,7 +86,7 @@ angular.module('newsApp').controller('NewsController', [ '$scope','leafletData',
 			var lonv = cords[0];
 			var latv = cords[1];
 			var id = value._id;
-			markArray[id] = {lat: latv, lng:lonv, focus:true, draggable:false, loc: value.locn[0], msg:value.title, txt:value.text, layer:'clusterGroup', icon : i};
+			markArray[id] = {lat: latv, lng:lonv, focus:true, draggable:false, loc: value.locn[0], title:value.title, text:value.text, layer:'clusterGroup', icon : i};
 		});
 		$scope.markers = markArray;
 		console.log("markers:")
@@ -168,7 +178,7 @@ angular.module('newsApp').controller('NewsController', [ '$scope','leafletData',
 			
 	$scope.$on("leafletDirectiveMarker.mouseover", function(event, args){
 		var leafEvent = args.leafletEvent;
-		leafEvent.target.bindPopup(leafEvent.target.options.msg + " news");
+		leafEvent.target.bindPopup(leafEvent.target.options.title);
 		leafEvent.target.openPopup();
 	});
 	
@@ -182,5 +192,34 @@ angular.module('newsApp').controller('NewsController', [ '$scope','leafletData',
 		$scope.selectedNews = leafEvent.target.options;
 		$('#newsModal').modal('show');
 	});
+	
+	$scope.showTrend = function(item){
+		$scope.selectedNews = item;
+		$('#newsModal').modal('show');
+	}
+	
+	$scope.tweets = [{
+        "text" : "49 pit caves have been found in Shaanxi, China. Some of them are more than 900 feet deep https://t.co/JHcQ2FjOjr https://t.co/Oy9gjhWnYa",
+},
+{
+        "text" : "Of the 250K people in eastern Aleppo trying to survive under Assad's starve-or-surrender siege, 100K are children.. https://t.co/ppcgibAeHN",
+},
+{
+        "text" : "As America backpedals on doing business with other nations, China and Russia appear poised to fill the gap.  https://t.co/5qJlKHTph9",
+}
+,
+{
+        "text" : "Rare chance! China's first aircraft carrier \"Liaoning\" has been put into training and testing mission https://t.co/eyC0Vx663B",
+},
+{
+        "text" : "Should we be surprised that a man who regards \"the basic dictatorship of China\" as his favourite country now praises a brutal dictator?",
+},
+{
+        "text" : "China's rich are getting richer: A record 400 billionaires made our China Rich List, with a combined wealth  of $947. https://t.co/UC9YXvuAuP",
+},
+{
+        "text" : "China is now using Crispr-edited cells in living, breathing human beings: https://t.co/DIglH1PUPs",
+}
+];
 
 }]);

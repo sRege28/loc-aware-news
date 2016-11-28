@@ -44,6 +44,49 @@ module.exports = function(app) {
 		});
 
 	});
+	
+	app.get('/getTrendingNews', function(req, res){
+
+		NewsModel.find({}).sort({ published: -1 }).limit(10).exec(
+			function(err, docs){
+				if(err)
+					res.send(err);
+				else
+					res.json(docs);				
+		});
+
+	});
+
+
+	app.get('/getCountryVsNewsCount', function(req, res){
+
+		   NewsModel.find({}, function(err,data)
+                {
+                   if(err)
+                    {
+                      res.send(err);
+                    }
+                  else
+                    {
+                      var map = {};
+                      data.forEach(function(oneArticle)
+                                   {
+                                   	  console.log(oneArticle.country);
+                                      var country = oneArticle.country;
+                                      if(!(country in map) && !(typeof country === 'undefined' || country === null) && !(country=='')) {
+                                      	map[country] = 1;
+                                      }
+                                      else if((country in map) && !(typeof country === 'undefined' || country === null) && !(country=='')){
+                                      	var value = map[country];
+                                      	map[country] = value + 1;
+                                      }
+                                   });
+                      console.log(map);
+                      res.json(map);
+                    }
+
+                });
+	});
 
     app.post('/getNewsAndTweetsInCountry', function(req,res)
              {
