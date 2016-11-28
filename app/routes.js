@@ -92,6 +92,7 @@ module.exports = function(app) {
              {
                  newsService(req,res);
              });
+	
 	// route to handle all angular requests
 	app.get('*', function(req, res) {
 		res.sendfile('./public/views/index.html');

@@ -1,10 +1,9 @@
 var NewsModel = require("../models/news_model");
 var Tweets = require("../models/twitter_model");
 
-
 function getNews(req,res,callback)
 {
-   var country = req.query;
+   var country = req.query.geometry;
 
    NewsModel.find(
          { coord: { $geoWithin:
