@@ -10,7 +10,7 @@ angular.module('newsApp').controller('NewsController', [ '$scope','leafletData',
 	$scope.selectedNews = {};
 		
 	function init(){
-		NewsService.countryVsNewsCount().then(function(res) {
+		NewsService.getCountries().then(function(res) {
 				if (res != null) {
 				   $scope.countries = res[0].features;
 				   //console.log($scope.countries);
@@ -82,11 +82,12 @@ angular.module('newsApp').controller('NewsController', [ '$scope','leafletData',
 					markerColor: 'blue'
 				}
 		angular.forEach($scope.points, function(value, key) {
-			var cords = value.coord;
+			var cords = value.article.coord;
 			var lonv = cords[0];
 			var latv = cords[1];
 			var id = value._id;
-			markArray[id] = {lat: latv, lng:lonv, focus:true, draggable:false, loc: value.locn[0], title:value.title, text:value.text, layer:'clusterGroup', icon : i};
+			markArray[id] = {lat: latv, lng:lonv, focus:true, draggable:false, loc: value.locn[0], title:value.article.title, text:value.article.text,
+				tweet: value.tweets, layer:'clusterGroup', icon : i};
 		});
 		$scope.markers = markArray;
 		console.log("markers:")
