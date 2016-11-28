@@ -14,7 +14,6 @@ console.log("successfully connected")
 //mongodb://localhost/news-sm
 //mongodb://admin:group13@ds145677.mlab.com:45677/newsdb
 
-
 var Schema = mongoose.Schema;
 
 var twitterSchema = new Schema({

@@ -38,6 +38,17 @@ angular.module('newsApp').service('NewsService', ['$http', function($http){
 		
 		return promise;
 	}
+	
+	this.getTrendingNews = function(){
+		 var promise = $http({
+		        method : "GET",
+		        url : "/getTrendingNews"
+		    }).then(function(response) {
+		    	console.log(response.data);
+		        return response.data;
+		});
 		
+		return promise;
+	}	
 	
 }]);
