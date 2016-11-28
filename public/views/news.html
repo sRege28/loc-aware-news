@@ -57,6 +57,11 @@
 						<p ng-bind-html="selectedNews.text"></p>
 					</div>
 	  			</div>
+				<div ng-repeat="tweet in tweets" class="form-group">
+					<div>
+						{{tweet.text}}
+					</div>
+	  			</div>
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-primary" data-dismiss="modal"
@@ -82,6 +87,11 @@ aria-hidden="true" data-keyboard="false" data-backdrop="static">
 							<p ng-bind-html="res.text"></p>
 						</div>
 		            </div>
+					<div ng-repeat="tweet in tweets" class="form-group">
+					<div>
+						{{tweet.text}}
+					</div>
+	  			</div>
 		        </div>
 				<!-- <div class="carousel-caption">
 					<p>Article {{$index+1}}</p>

@@ -2,13 +2,12 @@
 
 // modules =================================================
 var express        = require('express');
-var twitter        = require('twitter');
 var app            = express();
 var bodyParser     = require('body-parser');
 var methodOverride = require('method-override');
 var mongoose = require('mongoose');
-//var cron = require('cron');
-
+var cron = require('cron');
+var meth = require('./app/services/getNewsByKeyword')
 // configuration ===========================================
     
 // config files
@@ -41,7 +40,7 @@ require('./app/routes')(app); // configure our routes
 
 // start app ===============================================
 // startup our app at http://localhost:8080
-app.listen(port);               
+app.listen(port);              
 
 // shoutout to the user                     
 console.log('Started Heads Up News website on port ' + port);
@@ -49,9 +48,9 @@ console.log('Started Heads Up News website on port ' + port);
 // expose app           
 exports = module.exports = app;     
 
-/* app.on('listening', function () {
-    // call cron
-	var job = new cron.CronJob('* * * * *', function() {  
-				console.log('Function executed!');
-			}, null, true);
-}); */                    
+var job = new cron.CronJob("* * * * *", function() { 
+	meth.getNewsByKeyword();
+	console.log('Function executed!');
+}, null, true);
+job.start();
+     

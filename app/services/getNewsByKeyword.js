@@ -1,8 +1,8 @@
-var NewsModel = require("../models/news_model.js");
+var NewsModel = require("../models/news_model");
 
-function getNewsByKeyword()
-{
-  var keyword = "Rege";
+module.exports = {
+  getNewsByKeyword: function () {
+   var keyword = "justin";
 
   NewsModel.find({ $text : { $search : keyword} },function(err, docs)
                                                                   {
@@ -12,8 +12,6 @@ function getNewsByKeyword()
                                                                       console.log(docs);
 
                                                                   });
+  }
+};
 
-}
-
-
-getNewsByKeyword();
