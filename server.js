@@ -7,7 +7,7 @@ var bodyParser     = require('body-parser');
 var methodOverride = require('method-override');
 var mongoose = require('mongoose');
 var cron = require('cron');
-var meth = require('./app/services/getNewsByKeyword')
+var api = require('./app/services/pollForNews')
 // configuration ===========================================
     
 // config files
@@ -49,7 +49,7 @@ console.log('Started Heads Up News website on port ' + port);
 exports = module.exports = app;     
 
 var job = new cron.CronJob("* * * * *", function() { 
-	meth.getNewsByKeyword();
+	api.getNews();
 	console.log('Function executed!');
 }, null, true);
 job.start();
