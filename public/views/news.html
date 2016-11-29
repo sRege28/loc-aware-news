@@ -34,7 +34,7 @@
       <div class="panel-heading">Top 10 latest news articles</div>
 		  <div class="panel-body">
 			  <ul class="nav nav-stacked" ng-repeat="news in trending">
-				<li><a href="" ng-click="showTrend(news)">{{news.title}}</a></li>
+				<li><a href="" ng-click="showTrend(news)">{{news.article.title}}</a></li>
 			  </ul>
 	  </div>
  </div>
@@ -42,7 +42,7 @@
 
 </div>
 
-<!-- Modal for selected article-->
+<!-- Modal for selected and top articles -->
 <div class="modal fade" id="newsModal" tabindex="-1" role="dialog" aria-labelledby="newsModal" 
 	aria-hidden="true" data-keyboard="false" data-backdrop="static">
    <div class="modal-dialog">
@@ -78,15 +78,15 @@ aria-hidden="true" data-keyboard="false" data-backdrop="static">
 			<carousel interval="myInterval">
 				<slide ng-repeat="res in searchRes" active="point.active">
 				<div class="modal-header bg-primary">
-					<h4 class="modal-title">{{res.title}}</h4>
+					<h4 class="modal-title">{{res.article.title}}</h4>
 				</div>
 				<div class="modal-body">
 					<div class="form-group">
 						<div>
-							<p ng-bind-html="res.text"></p>
+							<p ng-bind-html="res.article.text"></p>
 						</div>
 		            </div>
-					<div ng-repeat="tweet in tweets" class="form-group">
+					<div ng-repeat="tweet in res.tweets" class="form-group">
 					<div>
 						{{tweet.text}}
 					</div>

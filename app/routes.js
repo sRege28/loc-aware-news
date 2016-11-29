@@ -46,17 +46,17 @@ module.exports = function(app) {
 	});
 
 	app.get('/getNewsAndTweetsByKeyword',function(req, res)
-         {
-           NewsModel.find({ $text : { $search : req.query.keyword} }
-			,function(err, docs){
-				if(err)
-					res.send(err);
-				else
-					{
-					  newsService.getTweets(res,null,docs);
-					}
-             });
-         });
+    {
+	   NewsModel.find({ $text : { $search : req.query.keyword} }
+		,function(err, docs){
+			if(err)
+				res.send(err);
+			else
+			{
+			  newsService.getTweets(res,null,docs);
+			}
+		 });
+    });
 
 	app.get('/getTrendingNews', function(req, res){
 
@@ -84,32 +84,32 @@ module.exports = function(app) {
 
 	app.get('/getCountryVsNewsCount', function(req, res){
 
-		   NewsModel.find({}, function(err,data)
-                {
-                   if(err)
-                    {
-                      res.send(err);
-                    }
-                  else
-                    {
-                      var map = {};
-                      data.forEach(function(oneArticle)
-                                   {
-                                   	  console.log(oneArticle.country);
-                                      var country = oneArticle.country;
-                                      if(!(country in map) && !(typeof country === 'undefined' || country === null) && !(country=='')) {
-                                      	map[country] = 1;
-                                      }
-                                      else if((country in map) && !(typeof country === 'undefined' || country === null) && !(country=='')){
-                                      	var value = map[country];
-                                      	map[country] = value + 1;
-                                      }
-                                   });
-                      console.log(map);
-                      res.json(map);
-                    }
+	   NewsModel.find({}, function(err,data)
+		{
+		   if(err)
+			{
+			  res.send(err);
+			}
+		    else
+			{
+			  var map = {};
+			  data.forEach(function(oneArticle)
+						   {
+							  console.log(oneArticle.country);
+							  var country = oneArticle.country;
+							  if(!(country in map) && !(typeof country === 'undefined' || country === null) && !(country=='')) {
+								map[country] = 1;
+							  }
+							  else if((country in map) && !(typeof country === 'undefined' || country === null) && !(country=='')){
+								var value = map[country];
+								map[country] = value + 1;
+							  }
+						   });
+			  console.log(map);
+			  res.json(map);
+			}
 
-                });
+		});
 	});
 
     app.post('/getNewsAndTweetsInCountry', function(req,res)

@@ -172,7 +172,8 @@ angular.module('newsApp').controller('NewsController', [ '$scope','leafletData',
 	});
 	
 	$scope.showTrend = function(item){
-		$scope.selectedNews = item;
+		$scope.selectedNews = item.article;
+		$scope.selectedNews.tweets = item.tweets;
 		$('#newsModal').modal('show');
 	}
 
