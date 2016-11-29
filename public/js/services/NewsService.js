@@ -6,7 +6,6 @@ angular.module('newsApp').service('NewsService', ['$http', function($http){
 		        url : "/getNewsAndTweetsByKeyword",
 		        params: {keyword:searchKey}
 		    }).then(function(response) {
-		    	console.log(response.data);
 		        return response.data;
 		    });
 		 
@@ -18,7 +17,6 @@ angular.module('newsApp').service('NewsService', ['$http', function($http){
 		        method : "GET",
 		        url : "/getCountries"
 		    }).then(function(response) {
-		    	console.log(response.data);
 		        return response.data;
 		});
 		
@@ -32,7 +30,6 @@ angular.module('newsApp').service('NewsService', ['$http', function($http){
 		        url : "/getNewsAndTweetsInCountry",
 				params: {geometry:geo}
 		    }).then(function(response) {
-		    	console.log(response.data);
 		        return response.data;
 		});
 		
@@ -44,7 +41,6 @@ angular.module('newsApp').service('NewsService', ['$http', function($http){
 		        method : "GET",
 		        url : "/getTrendingNewsAndTweets"
 		    }).then(function(response) {
-		    	console.log(response.data);
 		        return response.data;
 		});
 		
