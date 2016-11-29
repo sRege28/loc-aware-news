@@ -50,17 +50,26 @@
 			<div class="modal-header  bg-primary">
 				<h4 class="modal-title">{{selectedNews.title}}</h4>
 			</div>
+			
 			<div class="modal-body">
 	  			<div class="form-group">
-					<div>
-						<p ng-bind-html="selectedNews.text"></p>
+				<div class="scrollNews">
+				<h2><i class="fa fa-newspaper-o"  style="font-size:30px;color:#1f609e"></i> News Article</h2>
+					<div class="news">
+						<p class="rcorners1 " ng-bind-html="selectedNews.text"></p>
 					</div>
 	  			</div>
-				<div ng-repeat="tweet in selectedNews.tweets" class="form-group">
-					<div>
+				</div>
+				<div class="scroll">
+				<h2><i class="fa fa-twitter" style="font-size:30px;color:#70d5f4"></i> Tweets</h2>
+				<div  ng-repeat="tweet in selectedNews.tweets"  class="form-group">
+					<span  class="chat" 
+                     ng-class-odd="'bubble me'" 
+                     ng-class-even="'bubble me'">
 						{{tweet.text}}
-					</div>
+					</span>
 	  			</div>
+				</div>
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-primary" data-dismiss="modal"
