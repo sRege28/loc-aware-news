@@ -50,29 +50,13 @@ console.log('Started Heads Up News website on port ' + port);
 // expose app
 exports = module.exports = app;
 
-
-
-
 //api.getNews();
-
-
 //social.storeTwitterData();
-/*
-var job = new cron.CronJob("0 0 * * *", function() {
-
-<<<<<<< HEAD
 /* var job = new cron.CronJob("0 0 * * *", function() { 
-=======
->>>>>>> d75dc05ea2623b369a84bf9b3b0501e0883982a3
+
 	api.getNews();
 	social.storeTwitterData();
 	console.log('Functions executed!');
 }, null, true);
-<<<<<<< HEAD
+
 job.start(); */
-=======
-job.start();
-
-*/
-
->>>>>>> d75dc05ea2623b369a84bf9b3b0501e0883982a3
