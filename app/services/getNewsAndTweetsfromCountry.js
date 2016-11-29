@@ -26,31 +26,32 @@ var getTweets = function getTweets(res, err, news)
      res.send(err,null);
    else
     {
-      var newsAndTweets=[];
-      news.forEach(function(article, i)
-	   {  
+      respObj = [];
+	  news.forEach(function(article, i)
+	   {
 		  var obj = {};
-		  console.log(article.id);
 		  Tweets.find({news_article_ref: {$eq : article.id}}).exec(function(err,data)
-						{
-						  if(err) res.send(err);
-						  else
-						{
-						  obj.article = article;
-						  obj.tweets = data;
-						  respObj.push(obj);
-						  obj = {};
-						  console.log(data);
-						  if(i == news.length-1){
-							  res.send(respObj);
-						  }
-						}});
+			{
+				if(err) 
+					res.send(err);
+				else
+				{
+					obj.article = article;
+				  obj.tweets = data;
+				  respObj.push(obj);
+				  obj = {};
+				  if(i == news.length-1){
+					  console.log(respObj);
+					  res.send(respObj);
+					}
+			}});
 	   });
    }
 };
 
 module.exports ={
 
-	getNews : getNews
+	getNews : getNews,
+	getTweets: getTweets
 
 }
