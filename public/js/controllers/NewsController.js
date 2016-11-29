@@ -1,7 +1,7 @@
 angular.module('newsApp').controller('NewsController', [ '$scope','leafletData', 'NewsService', function($scope, leafletData, NewsService) {
 
 	$scope.countries = [];
-	//$scope.myInterval = 6000;
+	$scope.myInterval = 6000;
 	$scope.points = [];
 	$scope.showModal = false;
 	$scope.selectedNews = {};

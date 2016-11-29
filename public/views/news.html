@@ -84,9 +84,9 @@
 aria-hidden="true" data-keyboard="false" data-backdrop="static">
 	<div class="modal-dialog">
 		<div class="modal-content">
-		<div>
-			<carousel interval="myInterval">
-				<slide ng-repeat="res in searchRes">
+			<div class="carousel" id="slider">
+				<div class="carousel-inner">
+				<div class="item" ng-class="{active:!$index}" ng-repeat="res in searchRes">
 				<div class="modal-header bg-primary">
 					<h4 class="modal-title">{{res.article.title}}</h4>
 				</div>
@@ -100,20 +100,23 @@ aria-hidden="true" data-keyboard="false" data-backdrop="static">
 					<div>
 						{{tweet.text}}
 					</div>
-	  			</div>
+					</div>
 		        </div>
 				<!-- <div class="carousel-caption">
 					<p>Article {{$index+1}}</p>
-				</div> -->
-				</slide>
-		    </carousel>
-		</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-primary" data-dismiss="modal"
-					ng-click="closeSearch()">Close</button>
+				</div> 
+				-->
+				</div>
+				</div>
+				<a class="carousel-control left" href="#slider" data-slide="prev"></a>
+				<a class="carousel-control right" href="#slider" data-slide="next"></a>
 			</div>
+		<div class="modal-footer">
+			<button type="button" class="btn btn-primary" data-dismiss="modal"
+				ng-click="closeSearch()">Close</button>
 		</div>
-	</div>
+		</div>
+		</div>
 </div>
 
 </div>
