@@ -1,8 +1,8 @@
 var NewsModel = require("../models/news_model");
+var TwitterModel = require("../models/twitter_model");
 
-function country_vs_newscount()
+function top_news_articles() 
 {
-
+	
 }
-
-country_vs_newscount()
+top_news_articles();
