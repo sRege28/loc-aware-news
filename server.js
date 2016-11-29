@@ -43,6 +43,7 @@ require('./app/routes')(app); // configure our routes
 // startup our app at http://localhost:8080
 app.listen(port);
 
+
 // shoutout to the user
 console.log('Started Heads Up News website on port ' + port);
 
@@ -51,10 +52,11 @@ exports = module.exports = app;
 
 //api.getNews();
 //social.storeTwitterData();
+/* var job = new cron.CronJob("0 0 * * *", function() { 
 
-var job = new cron.CronJob("0 0 * * *", function() { 
 	api.getNews();
 	social.storeTwitterData();
 	console.log('Functions executed!');
 }, null, true);
-job.start();
+
+job.start(); */

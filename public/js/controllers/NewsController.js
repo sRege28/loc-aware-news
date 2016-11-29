@@ -5,12 +5,13 @@ angular.module('newsApp').controller('NewsController', [ '$scope','leafletData',
 	$scope.points = [];
 	$scope.showModal = false;
 	$scope.selectedNews = {};
+	$scope.searchRes = [];
+	$scope.searchKey = "";
 		
 	function init(){
 		NewsService.getCountries().then(function(res) {
 				if (res != null) {
 				   $scope.countries = res[0].features;
-				   //console.log($scope.countries);
 				} else {
 					console.log("Error");
 				}
@@ -34,6 +35,8 @@ angular.module('newsApp').controller('NewsController', [ '$scope','leafletData',
 	}
 	
 	$scope.closeSearch = function(){
+		$scope.searchKey = "";
+		$scope.searchRes = [];
 		$('#searchModal').modal('hide');
 	}
 
@@ -41,13 +44,14 @@ angular.module('newsApp').controller('NewsController', [ '$scope','leafletData',
 		if (keyEvent.which === 13){
 			NewsService.getNewsBySearchKey($scope.searchKey).then(function(res) {
 				if (res != null) {
-				   $scope.searchRes = res;
+				   $scope.searchRes = angular.copy(res);
+				   console.log("Search:");
+				   console.log($scope.searchRes);
 				   $('#searchModal').modal('show');
 				} else {
-					console.log("Error");
+					 console.log("Error");
 				}
-			});
-			$scope.searchKey = "";
+			});	
 		}	
 	}
 
@@ -67,8 +71,6 @@ angular.module('newsApp').controller('NewsController', [ '$scope','leafletData',
 				tweets: value.tweets, layer:'clusterGroup', icon : i};
 		});
 		$scope.markers = markArray;
-		console.log("markers:")
-		console.log($scope.markers);
     };
 	
 	angular.extend($scope, {
@@ -145,6 +147,7 @@ angular.module('newsApp').controller('NewsController', [ '$scope','leafletData',
 		NewsService.getNewsForCountry(selectedCountry.geometry).then(function(res) {
 			if (res != null) {
 			   $scope.points = res;
+			   console.log("News for country:");
 			   console.log($scope.points);
 			   $scope.getMarkers();
 			} else {

@@ -31,7 +31,7 @@ function getNews()
                                                                                      {
                                                                                         article.tags = data;
                                                                                         news_array.push(article);
-                                                                                        console.log(news_array);
+
 ;                                                                                     });
                                                                         });
                                                    });
