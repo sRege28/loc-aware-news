@@ -1,4 +1,4 @@
-var NewsModel = require("./models/news_model");
+var NewsModel = require("../models/news_model");
 //var NewsModel = require("../models/news_model");
 var API = require("./api_call");
 var getGeocode = require("./location");
@@ -21,7 +21,12 @@ function getAllNewsArticles()
                                                  {
                                                    if(err)
                                                     {
-                                                      console.log("Cannot get co-ordinates in testlocn:24"+ err);
+                                                       console.log(err+" -Removing this document");
+                                                       oneArticle.remove({},function(err)
+                                                        {
+                                                         if(err)
+                                                         console.log(err);
+                                                        });
                                                     }
                                                    else
                                                     {

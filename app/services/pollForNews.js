@@ -13,7 +13,7 @@ var saveData = function (err,data)
 	else
 	{
 		newsAsJson = data.posts;
-		newsAsJson.forEach(function(post){
+		newsAsJson.forEach(function(post, i){
 			ents = post.entities;
 			var locns = [];
 
@@ -34,16 +34,19 @@ var saveData = function (err,data)
 				{
 					console.log(err);
 				}
-
+                else if( i == newsAsJson.length-1)
+                    {
+                        getLocationForNews();
+                    }
 			});
-		
+
 		});
-		getLocationForNews();
+
 	}
 };
 
 var getNews = function getNews()
-{
+{   console.log('Getting news');
 	unirest.get("https://webhose.io/search?token=41e87151-5f04-4c19-b009-e741af4db81d&format=json&q=language%3A(english)%20site%3Acnn.com%20(site_type%3Anews)")
 	.header("Accept", "text/plain").end(function (result)
 	{
@@ -60,20 +63,24 @@ var getNews = function getNews()
 };
 
 var getLocationForNews = function getLocationForNews()
-{
+{   console.log('Get location for news');
 	NewsModel.find({}, function(err,data){
 		if(err)
 		{
 			console.log(err);
 		}
 		else
-		{
+		{   console.log(data.length+" documents in db");
 			data.forEach(function(oneArticle){
 				var locns = oneArticle.locn;
 				getLocation(locns,function(err,geodata){
 					if(err)
 					{
-					  console.log("Cannot get co-ordinates in testlocn:24"+ err);
+                      console.log(err+" -Removing this document");
+                      oneArticle.remove({},function(err)
+                                        {
+                                          console.log(err);
+                                        })
 					}
 					else
 					{
@@ -112,72 +119,70 @@ var getLocation = function getLocation(arr,callback){
 	var apikey = "AIzaSyCd6c7XfQB5KcKcOqhaYVUzaaH0UZzsBi4";
 	apikey = "AIzaSyBscboAr0OLaQMwqtlKXCUBPLdB-fp4pw4";
 
+    var json = null;
+
+
  	for (var i = 0; i < len; i++) {
  		str = Get("https://maps.googleapis.com/maps/api/geocode/json?address="+ arr[i] + "&key=" + apikey);
-    	json_obj[i] = JSON.parse(str);
+    	obj = JSON.parse(str);
+    	//console.log(obj.results[0]);
+
+        if(obj.results[0] === undefined || obj.results[0]=== null) //If no results, or no type
+            { continue;}
+        var type = obj.results[0].types[0];
+        if(type === undefined || type === null)
+            { continue;}
+	    else if(type == 'country')// is country
+             {
+               if(i==len -1) json = obj;
+               else continue;
+             }
+        else
+            {
+              json = obj;
+              break;                         // break at first non-country;
+            }
 	}
 
-	var coordinates = getBestCoordinates(json_obj);
- 	if(coordinates instanceof Error) {
- 		var err = coordinates;
- 		callback(err,null);
- 	}
- 	else {
- 		callback(null,coordinates);
- 	}
+    if(json== null || json == undefined)
+        {
+          callback("Undefined object", null);
+        }
+   else{
+            var lat = json.results[0].geometry.location.lat;
+            var lng = json.results[0].geometry.location.lng;
+            var acom = json.results[0].address_components;
+            var clen = acom.length;
+            var country = "";
+            for (var j = 0; j < clen; j++) {
+                var a = acom[j];
+                if(a.types[0]=="country") {
+                    country = a.long_name;
+                  }
+              }
+        console.log("Country is " + country+" and lat lng is "+lat+" "+lng);
+        var geocode = {};
+        if(country == undefined || country == null || lat == undefined || lat == null || lng == undefined || lng == null)
+            {
+               geocode = new Error("No valid lat lng or country");
+            }
+        else{   geocode = {"country":country,"coordinates":[lng,lat]};
+                if(geocode instanceof Error) {
+                    var err = geocode;
+                    callback(err,null);
+                    }
+                else {
+                    callback(null,geocode);
+                     }
+            }
+
+   }
+
 }
 
-var getBestCoordinates = function getBestCoordinates(json) {
-
- 	var len = json.length;
- 	var isCountry;
- 	var index = -1;
-
- 	for (var i = 0; i < len; i++) {
- 		var x = json[i];
-        if(x.results[0] === undefined || x.results[0]=== null)
-        {
-          // Cannot parse the field for some reason
-          console.log("error! %j", x);
-          continue;
-        }
- 		var type = x.results[0].types[0];
-        if(type === undefined || type === null) {
- 			continue;
- 		}
-        else if(type == "country") {
- 			isCountry = true;
- 			index = i;
- 		}
- 		else {
- 			isCountry = false;
- 			index = i;
- 			break;
- 		}
-	}
-	if(isCountry === undefined || isCountry === null) {
-		return new Error('bad request');
-	}
-
-	var lat = json[index].results[0].geometry.location.lat;
-	var lng = json[index].results[0].geometry.location.lng;
-	var acom = json[index].results[0].address_components;
-	var clen = acom.length;
-	var country = "";
-	for (var i = 0; i < clen; i++) {
-		var a = acom[i];
-		if(a.types[0]=="country") {
-			country = a.long_name;
-		}
-	}
-	console.log("Country is " + country);
-	//console.log("Geocoded co-ordinates best reult: "+json[index].results[0].formatted_address);
-	var obj = {"country":country,"coordinates":[lng,lat]};
-	return obj;
- }
 
 module.exports = {
-	
+
 	getNews : getNews
-	
+
 };

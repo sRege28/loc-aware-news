@@ -1,5 +1,4 @@
 <div class="container">
-<!-- <script src="https://gist.github.com/leefsmp/05d62aefa165c85e47ae.js"></script> -->
 <form class="form-horizontal">
 	<div class="form-group">
         <label class="col-sm-3 control-label">Select a country for region specific news:</label>
@@ -35,7 +34,7 @@
       <div class="panel-heading">Top 10 latest news articles</div>
 		  <div class="panel-body">
 			  <ul class="nav nav-stacked" ng-repeat="news in trending">
-				<li><a href="" ng-click="showTrend(news)">{{news.title}}</a></li>
+				<li><a href="" ng-click="showTrend(news)">{{news.article.title}}</a></li>
 			  </ul>
 	  </div>
  </div>
@@ -43,7 +42,7 @@
 
 </div>
 
-<!-- Modal -->
+<!-- Modal for selected and top articles -->
 <div class="modal fade" id="newsModal" tabindex="-1" role="dialog" aria-labelledby="newsModal" 
 	aria-hidden="true" data-keyboard="false" data-backdrop="static">
    <div class="modal-dialog">
@@ -51,17 +50,26 @@
 			<div class="modal-header  bg-primary">
 				<h4 class="modal-title">{{selectedNews.title}}</h4>
 			</div>
+			
 			<div class="modal-body">
 	  			<div class="form-group">
-					<div>
-						<p ng-bind-html="selectedNews.text"></p>
+				<div class="scrollNews">
+				<h2><i class="fa fa-newspaper-o"  style="font-size:30px;color:#1f609e"></i> News Article</h2>
+					<div class="news">
+						<p class="rcorners1 " ng-bind-html="selectedNews.text"></p>
 					</div>
 	  			</div>
-				<div ng-repeat="tweet in tweets" class="form-group">
-					<div>
+				</div>
+				<div class="scroll">
+				<h2><i class="fa fa-twitter" style="font-size:30px;color:#70d5f4"></i> Tweets</h2>
+				<div  ng-repeat="tweet in selectedNews.tweets"  class="form-group">
+					<span  class="chat" 
+                     ng-class-odd="'bubble me'" 
+                     ng-class-even="'bubble me'">
 						{{tweet.text}}
-					</div>
+					</span>
 	  			</div>
+				</div>
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-primary" data-dismiss="modal"
@@ -76,32 +84,39 @@
 aria-hidden="true" data-keyboard="false" data-backdrop="static">
 	<div class="modal-dialog">
 		<div class="modal-content">
-			<carousel interval="myInterval">
-				<slide ng-repeat="res in searchRes" active="point.active">
+			<div class="carousel" id="slider">
+				<div class="carousel-inner">
+				<div class="item" ng-class="{active:!$index}" ng-repeat="res in searchRes">
 				<div class="modal-header bg-primary">
-					<h4 class="modal-title">{{res.title}}</h4>
+					<h4 class="modal-title">{{res.article.title}}</h4>
 				</div>
 				<div class="modal-body">
 					<div class="form-group">
 						<div>
-							<p ng-bind-html="res.text"></p>
+							<p ng-bind-html="res.article.text"></p>
 						</div>
 		            </div>
-					<div ng-repeat="tweet in tweets" class="form-group">
+					<div ng-repeat="tweet in res.tweets" class="form-group">
 					<div>
 						{{tweet.text}}
 					</div>
-	  			</div>
+					</div>
 		        </div>
 				<!-- <div class="carousel-caption">
 					<p>Article {{$index+1}}</p>
-				</div> -->
-				</slide>
-		    </carousel>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-primary" data-dismiss="modal"
-					ng-click="closeSearch()">Close</button>
+				</div> 
+				-->
+				</div>
+				</div>
+				<a class="carousel-control left" href="#slider" data-slide="prev"></a>
+				<a class="carousel-control right" href="#slider" data-slide="next"></a>
 			</div>
+		<div class="modal-footer">
+			<button type="button" class="btn btn-primary" data-dismiss="modal"
+				ng-click="closeSearch()">Close</button>
 		</div>
-	</div>
+		</div>
+		</div>
+</div>
+
 </div>
