@@ -11,6 +11,6 @@ var twitterSchema = new Schema({
   retweet_count:Number,
   favorite_count: Number,
   news_article_ref: {type:Schema.Types.ObjectId, ref: 'NewsModel'}
- },{collection: "finaltwitter"});
+ },{collection: "twitter"});
 
 module.exports = mongoose.model('TwitterModel',twitterSchema);
