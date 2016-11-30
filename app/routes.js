@@ -176,6 +176,126 @@ module.exports = function(app) {
 
 	});
 
+	app.get('/getAggregateFirst', function(req, res){
+
+	    NewsModel.aggregate([
+	        {
+	            $group: {
+	                _id: '$country',  //$region is the column name in collection
+	                count: {$sum: 1}
+	            }
+	        }
+	    ], function (err, result) {
+	        if (err) {
+	            res.send(err);
+	        } else {
+	            res.json(result);
+	        }
+	    });
+	});
+
+	app.get('/getAggregateSecond', function(req, res){
+
+		TwitterModel.aggregate([
+               {
+		            $group: {
+		                _id: '$news_article_ref',  
+		                mean_retweets: {$avg: "$retweet_count"}
+		            }
+	        	},
+	        	{
+	                $lookup: {
+	                  from: 'news',
+	                  localField: '_id',
+	                  foreignField: '_id',
+	                  as: 'news'
+	                }
+	                
+            	},
+            	{
+	                	$unwind : "$news"
+	            },
+	            {
+	            	$group: {
+		                _id: '$news.country',  
+		                mean_retweets: {$avg: "$mean_retweets"}
+		            }
+	            }
+
+            ], function(err, docs){
+				if(err)
+					res.send(err);
+				else
+					res.json(docs);
+		});
+	});
+
+	app.get('/getAggregateThird', function(req, res){
+
+		TwitterModel.aggregate([
+               {
+		            $project: {
+		                _id: '$news_article_ref',  
+		                score: {$sum:["$retweet_count","$favorite_count"] }
+		            }
+	           },
+	           {
+		            $group: {
+		                _id: '$_id',  
+		                max_score: {$max: "$score"}
+
+	 				}
+ 			   },
+ 			   {
+	                $lookup: {
+	                  from: 'news',
+	                  localField: '_id',
+	                  foreignField: '_id',
+	                  as: 'news'
+	                }
+            	},
+            	{
+	                	$unwind : "$news"
+	            },
+	            {
+	            	$project: {
+		                _id: '$news.title', 
+		                score: '$max_score'
+		            }
+	            }
+
+            ], function(err, docs){
+				if(err)
+					res.send(err);
+				else
+					res.json(docs);
+		});
+	});
+
+
+
+	 //    NewsModel.aggregate([
+  //             {
+  //               $lookup: {
+  //                 from: 'twitter',
+  //                 localField: '_id',
+  //                 foreignField: 'news_article_ref',
+  //                 as: 'tweets'
+  //               },
+  //               {
+	 //            $group: {
+	 //                _id: '$country',  
+	 //                mean_retweets: {$avg: 1}
+	 //            }
+	 //        	}
+  //             }
+  //           ], function(err, docs){
+		// 		if(err)
+		// 			res.send(err);
+		// 		else
+		// 			res.json(docs);
+		// });
+
 	app.get('/getPopularNews', function(req, res){
 
 		NewsModel.find({}, function(err,data)
