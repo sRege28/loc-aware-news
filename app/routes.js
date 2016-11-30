@@ -1,6 +1,6 @@
 var Countries = require('./models/countries');
 var NewsModel = require("./models/news_model");
-var newsService = require("./services/getNewsAndTweetsfromCountry");
+//var newsService = require("./services/getNewsAndTweetsfromCountry");
 var TwitterModel = require("./models/twitter_model");
 
 module.exports = function(app) {
@@ -33,8 +33,69 @@ module.exports = function(app) {
 
 			});
 	});
+	
+	app.get('/getNewsAndTweetsByKeyword', function(req,res)
+	{
+		NewsModel.aggregate([
+			{
+				$match: { $text: { $search: req.query.keyword } } 
+			},
+			{
+				$lookup: {
+				  from: 'twitter',
+				  localField: '_id',
+				  foreignField: 'news_article_ref',
+				  as: 'tweets'
+				}
+			}
+            ], function(err, docs){
+				if(err)
+					res.send(err);
+				else
+					res.json(docs);
+		});
+	});
+	
+	app.get('/getTweetsForNews', function(req, res) {		
+				
+		TwitterModel.find({		
+                  news_article_ref: {$eq : req.query.newsid}},		
+                  function(err, docs)		
+				  {		
+					if(err)		
+						res.send(err);		
+					else		
+						res.json(docs);		
+			});		
+	});
+	
+	app.get('/getTrendingNewsAndTweets', function(req, res){
 
-	app.get('/getNewsByKeyword', function(req, res){
+		NewsModel.aggregate([
+				{
+					$sort : { published: -1 } 
+				},
+				{
+					$limit : 10 
+				},
+				{
+					$lookup: {
+					  from: 'twitter',
+					  localField: '_id',
+					  foreignField: 'news_article_ref',
+					  as: 'tweets'
+					}
+				}
+				], function(err, docs){
+					if(err)
+						res.send(err);
+					else
+						res.json(docs);
+			});
+
+	});
+
+	/* app.get('/getNewsByKeyword', function(req, res){
 
 		NewsModel.find({ $text : { $search : req.query.keyword} }
 			,function(err, docs){
@@ -44,22 +105,9 @@ module.exports = function(app) {
 					res.json(docs);
 		});
 
-	});
+	}); */
 
-	app.get('/getNewsAndTweetsByKeyword',function(req, res)
-    {
-	   NewsModel.find({ $text : { $search : req.query.keyword} }
-		,function(err, docs){
-			if(err)
-				res.send(err);
-			else
-			{
-			  newsService.getTweets(res,null,docs);
-			}
-		 });
-    });
-
-	app.get('/getTrendingNews', function(req, res){
+	/* app.get('/getTrendingNews', function(req, res){
 
 		NewsModel.find({}).sort({ published: -1 }).limit(10).exec(
 			function(err, docs){
@@ -69,7 +117,7 @@ module.exports = function(app) {
 					res.json(docs);
 		});
 
-	});
+	}); 
 
 	app.get('/getTrendingNewsAndTweets', function(req, res){
 
@@ -82,8 +130,21 @@ module.exports = function(app) {
 		});
 
 	});
+	
+	app.get('/getNewsAndTweetsByKeyword',function(req, res)
+    {
+	   NewsModel.find({ $text : { $search : req.query.keyword} }
+		,function(err, docs){
+			if(err)
+				res.send(err);
+			else
+			{
+			  newsService.getTweets(res,null,docs);
+			}
+		 });
+    }); */
 
-	app.get('/getCountryVsNewsCount', function(req, res){
+	/* app.get('/getCountryVsNewsCount', function(req, res){
 
 	   NewsModel.find({}, function(err,data)
 		{
@@ -174,7 +235,7 @@ module.exports = function(app) {
 
                 });	
 
-	});
+	}); */
 
 	app.get('/getAggregateFirst', function(req, res){
 
@@ -272,31 +333,7 @@ module.exports = function(app) {
 		});
 	});
 
-
-
-	 //    NewsModel.aggregate([
-  //             {
-  //               $lookup: {
-  //                 from: 'twitter',
-  //                 localField: '_id',
-  //                 foreignField: 'news_article_ref',
-  //                 as: 'tweets'
-  //               },
-  //               {
-	 //            $group: {
-	 //                _id: '$country',  
-	 //                mean_retweets: {$avg: 1}
-	 //            }
-	 //        	}
-  //             }
-  //           ], function(err, docs){
-		// 		if(err)
-		// 			res.send(err);
-		// 		else
-		// 			res.json(docs);
-		// });
-
-	app.get('/getPopularNews', function(req, res){
+	/* app.get('/getPopularNews', function(req, res){
 
 		NewsModel.find({}, function(err,data)
                 {
@@ -347,25 +384,14 @@ module.exports = function(app) {
 
 	});
 
+ */
 
-
-    app.post('/getNewsAndTweetsInCountry', function(req,res)
+    /* app.post('/getNewsAndTweetsInCountry', function(req,res)
 	{
 		newsService.getNews(req,res);
-	});
+	}); */
 	
-	app.get('/getTweetsForNews', function(req, res) {		
-				
-		TwitterModel.find({		
-                  news_article_ref: {$eq : req.query.newsid}},		
-                  function(err, docs)		
-				  {		
-					if(err)		
-						res.send(err);		
-					else		
-						res.json(docs);		
-			});		
-	});
+	
 
 	// route to handle all angular requests
 	app.get('*', function(req, res) {
