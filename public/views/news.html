@@ -31,7 +31,7 @@
 
 <div class="col-sm-3">
  <div class="panel panel-primary">
-      <div class="panel-heading">Top 10 latest news articles</div>
+      <div class="panel-heading">Trending news articles</div>
 		  <div class="panel-body">
 			  <ul class="nav nav-stacked" ng-repeat="news in trending">
 				<li><a href="" ng-click="showTrend(news)">{{news.article.title}}</a></li>
@@ -84,6 +84,7 @@
 aria-hidden="true" data-keyboard="false" data-backdrop="static">
 	<div class="modal-dialog">
 		<div class="modal-content">
+
 			<div class="carousel" id="slider">
 				<div class="carousel-inner">
 				<div class="item" ng-class="{active:!$index}" ng-repeat="res in searchRes">
@@ -92,13 +93,21 @@ aria-hidden="true" data-keyboard="false" data-backdrop="static">
 				</div>
 				<div class="modal-body">
 					<div class="form-group">
-						<div>
-							<p ng-bind-html="res.article.text"></p>
+					 <div class="scrollNews">
+				        <h2><i class="fa fa-newspaper-o" style="font-size:30px;color:#1f609e"></i> News Article</h2>
+						<div class="news">
+							<p class="rcorners1" ng-bind-html="res.article.text"></p>
 						</div>
+					</div>
 		            </div>
+					<div class="scroll">
+				    <h2><i class="fa fa-twitter" style="font-size:30px;color:#70d5f4"></i> Tweets</h2>
 					<div ng-repeat="tweet in res.tweets" class="form-group">
-					<div>
+					<span  class="chat" 
+                     ng-class-odd="'bubble me'" 
+                     ng-class-even="'bubble me'">
 						{{tweet.text}}
+					</span>
 					</div>
 					</div>
 		        </div>
