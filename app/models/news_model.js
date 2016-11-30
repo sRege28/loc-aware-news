@@ -14,7 +14,7 @@ var newsSchema = new Schema({
   locn: {type: Array, default:[]},
   coord: {type: Array, default:[]},
   country: String
- },{collection: "news"});
+ },{collection: "finalnews"});
 
 newsSchema.index({ "coord" : "2dsphere" });
 newsSchema.index({"title" : "text"});

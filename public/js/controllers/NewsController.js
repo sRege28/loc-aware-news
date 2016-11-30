@@ -63,12 +63,12 @@ angular.module('newsApp').controller('NewsController', [ '$scope','leafletData',
 					markerColor: 'blue'
 				}
 		angular.forEach($scope.points, function(value, key) {
-			var cords = value.article.coord;
+			var cords = value.coord;
 			var lonv = cords[0];
 			var latv = cords[1];
-			var id = value.article._id;
-			markArray[id] = {lat: latv, lng:lonv, focus:true, draggable:false, loc: value.article.locn[0], title:value.article.title, text:value.article.text,
-				tweets: value.tweets, layer:'clusterGroup', icon : i};
+			var id = value._id;
+			markArray[id] = {lat: latv, lng:lonv, focus:true, draggable:false, loc: value.locn[0], title:value.title, text:value.text,
+				layer:'clusterGroup', newsid: id, icon : i};
 		});
 		$scope.markers = markArray;
     };
@@ -170,7 +170,17 @@ angular.module('newsApp').controller('NewsController', [ '$scope','leafletData',
 	
 	$scope.$on("leafletDirectiveMarker.click", function(event, args){
 		var leafEvent = args.leafletEvent;
-		$scope.selectedNews = leafEvent.target.options;
+		
+		NewsService.getTweetsForNews(leafEvent.target.options.newsid).then(function(res) {
+			if (res != null) {
+			   console.log("Tweets for news:");
+			   console.log(res);
+			   $scope.selectedNews = leafEvent.target.options;
+			   $scope.selectedNews.tweets = res;
+			} else {
+				console.log("Error");
+			}
+		});
 		$('#newsModal').modal('show');
 	});
 	

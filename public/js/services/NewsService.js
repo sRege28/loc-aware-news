@@ -27,7 +27,8 @@ angular.module('newsApp').service('NewsService', ['$http', function($http){
 		
 		 var promise = $http({
 		        method : "POST",
-		        url : "/getNewsAndTweetsInCountry",
+		        url : "/getNewsInCountry",
+				cache: true,
 				params: {geometry:geo}
 		    }).then(function(response) {
 		        return response.data;
@@ -45,6 +46,19 @@ angular.module('newsApp').service('NewsService', ['$http', function($http){
 		});
 		
 		return promise;
+	}
+
+	this.getTweetsForNews = function(news){
+		console.log(news);
+		 var promise = $http({
+		        method : "GET",
+		        url : "/getTweetsForNews",
+				params: {newsid: news}
+		    }).then(function(response) {
+		        return response.data;
+		});
+		
+		return promise;
 	}	
-	
+		
 }]);

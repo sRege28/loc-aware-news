@@ -50,8 +50,6 @@ console.log('Started Heads Up News website on port ' + port);
 // expose app
 exports = module.exports = app;
 
-//api.getNews();
-social.storeTwitterData();
 /* var job = new cron.CronJob("0 0 * * *", function() { 
 
 	api.getNews();

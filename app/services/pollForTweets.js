@@ -4,11 +4,18 @@ var twitter = require('twitter');
 var keyword_extractor = require("keyword-extractor"); 
 var pos = require('pos');
 
-var config = {
+/* var config = {
   consumer_key: 'ysAleI7T1Ww9m2XzVPjaj5qRU',
   consumer_secret: 'J28QRycBLELqniO9beCmkkQf4M0W5i3ptZVxKB86wlNEkmC9n5',
   access_token_key: '1533314264-psvgsbn2SoLR0dio8BX5QgSArCpA2zAilOs5vJy',
   access_token_secret: 'ooxjAMuhjahgvr7unGiRvTx86r8NGsvdP4yw9NSKoUTOP'
+}; */
+
+var config = {
+  consumer_key: 'dxFf2P0jBM4o3xhJIgsgdeJUA',
+  consumer_secret: 'LDaJdYipslufe6bCIYSplyJIQfhdcwTX3vbq9DK8frb0ZSiiMv',
+  access_token_key: '803477426516979712-Mws3Egi7nqmSH4ZFpTXLHBFJMIfVSxj',
+  access_token_secret: 'rUm6lYrJr8ly9Yd7KAVXL7jjL01PS0lZasB5WJTWHBnXo'
 };
 
 var getNouns = function getNouns(str) {
@@ -60,7 +67,7 @@ var searchTwitter = function searchTwitter(str1,callback)
 			callback(false,data);
 		}
 		else {
-			console.log("Error in twitter API :\n\n" + error);
+			console.log("Error in twitter API :\n\n" + error + response);
 		}
 	});
 };
@@ -80,7 +87,7 @@ var storeTwitterData = function storeTwitterData()
 				var objId = oneArticle._id;
 
 				if(title){
-					setTimeout(searchTwitter(title,function(err,tweets){
+					searchTwitter(title,function(err,tweets){
 						if(err)
 						{
 						  console.log(err);
@@ -110,7 +117,7 @@ var storeTwitterData = function storeTwitterData()
 								});
 							}
 						}
-					}),1000);
+					});
 				}
 			});
 	   }

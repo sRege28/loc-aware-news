@@ -3,7 +3,8 @@ angular.module('newsApp').service('AnalyticsService', ['$http', function($http){
      this.getCountryVsNewsCount = function(){
          var promise = $http({
                 method : "GET",
-                url : "/getCountryVsNewsCount"
+                url : "/getCountryVsNewsCount",
+				cache: true
             }).then(function(response) {
                 console.log(response.data);
                 return response.data;
@@ -15,7 +16,8 @@ angular.module('newsApp').service('AnalyticsService', ['$http', function($http){
     this.getCountryVsRetweets = function(){
          var promise = $http({
                 method : "GET",
-                url : "/getCountryVsRetweets"
+                url : "/getCountryVsRetweets",
+				cache: true
             }).then(function(response) {
                 console.log(response.data);
                 return response.data;
@@ -27,7 +29,8 @@ angular.module('newsApp').service('AnalyticsService', ['$http', function($http){
     this.getPopularNews = function(){
          var promise = $http({
                 method : "GET",
-                url : "/getPopularNews"
+                url : "/getPopularNews",
+				cache: true
             }).then(function(response) {
                 console.log(response.data);
                 return response.data;

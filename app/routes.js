@@ -233,6 +233,20 @@ module.exports = function(app) {
 	{
 		newsService.getNews(req,res);
 	});
+	
+	app.get('/getTweetsForNews', function(req, res) {
+		
+		TwitterModel.find({
+                  news_article_ref: {$eq : req.query.newsid}},
+                  function(err, docs)
+				  {
+					if(err)
+						res.send(err);
+					else
+						res.json(docs);
+
+			});
+	});
 
 	// route to handle all angular requests
 	app.get('*', function(req, res) {
