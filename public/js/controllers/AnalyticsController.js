@@ -15,18 +15,18 @@ angular.module('newsApp').controller('AnalyticsController', [ '$scope','Analytic
 		}
 		data.sort([{column: 1,desc: true}]);
 		// Set chart options
-      var pie_options = {'title':'Distribution of news and tweets',
-                     'width':1040,'height':600,
+      var pie_options = {
+                     'width':500,'height':400,
                      'titleTextStyle':   {
 									        'color': 'black',    // any HTML string color ('red', '#cc00cc')
 									        'fontName': 'Times New Roman', // i.e. 'Times New Roman'
-									        'fontSize': 26, // 12, 18 whatever you want (don't specify px)
+									        'fontSize': 16, // 12, 18 whatever you want (don't specify px)
 									        'bold': true,    // true or false
 									        'italic': false  // true of false
 									    	}
                     };
-      var bar_options ={'width': 1240, 'height': 600, 
-                        'title': 'Number of news articles per country',
+      var bar_options ={'width': 500, 'height': 400, 
+                      
                         'titleTextStyle':   {
 									        'color': 'black',    // any HTML string color ('red', '#cc00cc')
 									        'fontName': 'Times New Roman', // i.e. 'Times New Roman'
@@ -56,8 +56,8 @@ angular.module('newsApp').controller('AnalyticsController', [ '$scope','Analytic
 		    }
 		}
 		data.sort([{column: 1,desc: true}]);
-		var pie_options = {'title':'Distribution of Retweets',
-                     'width':1040,'height':600,
+		var pie_options = {
+                     'width':500,'height':400,
                      'titleTextStyle':   {
 									        'color': 'black',    // any HTML string color ('red', '#cc00cc')
 									        'fontName': 'Times New Roman', // i.e. 'Times New Roman'
@@ -66,8 +66,8 @@ angular.module('newsApp').controller('AnalyticsController', [ '$scope','Analytic
 									        'italic': false  // true of false
 									    	}
                     };
-      	var bar_options ={'width': 1240, 'height': 600, 
-                        'title': 'Average retweets per country',
+      	var bar_options ={'width': 500, 'height': 400, 
+                        
                         'titleTextStyle':   {
 									        'color': 'black',    // any HTML string color ('red', '#cc00cc')
 									        'fontName': 'Times New Roman', // i.e. 'Times New Roman'
@@ -100,7 +100,7 @@ angular.module('newsApp').controller('AnalyticsController', [ '$scope','Analytic
 		data.sort([{column: 1,desc: true}]);
 		data.removeRows(20,data.getNumberOfRows()-20);
 		var table = new google.visualization.Table(document.getElementById('table'));
-		table.draw(data, {'title':'Most Popular News Articles', width: '70%', height: '100%', 'count':10});
+		table.draw(data, { width: '1200', height: '290', 'count':10});
 	}
 
 	function init(){
