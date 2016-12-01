@@ -3,7 +3,7 @@ google.load('visualization', '1', {
 });
 angular.module('newsApp').controller('AnalyticsController', [ '$scope','AnalyticsService', function($scope, AService) {
 
-	function getDataTable(res) {
+	/* function getDataTable(res) {
 		var data = new google.visualization.DataTable();
 		data.addColumn('string', 'Country');
 		data.addColumn('number', 'Count');
@@ -16,7 +16,7 @@ angular.module('newsApp').controller('AnalyticsController', [ '$scope','Analytic
 		data.sort([{column: 1,desc: true}]);
 		// Set chart options
       var pie_options = {
-                     'width':500,'height':400,
+                     'width':600,'height':400,
                      'titleTextStyle':   {
 									        'color': 'black',    // any HTML string color ('red', '#cc00cc')
 									        'fontName': 'Times New Roman', // i.e. 'Times New Roman'
@@ -25,7 +25,7 @@ angular.module('newsApp').controller('AnalyticsController', [ '$scope','Analytic
 									        'italic': false  // true of false
 									    	}
                     };
-      var bar_options ={'width': 500, 'height': 400, 
+      var bar_options ={'width': 600, 'height': 400, 
                       
                         'titleTextStyle':   {
 									        'color': 'black',    // any HTML string color ('red', '#cc00cc')
@@ -57,7 +57,7 @@ angular.module('newsApp').controller('AnalyticsController', [ '$scope','Analytic
 		}
 		data.sort([{column: 1,desc: true}]);
 		var pie_options = {
-                     'width':500,'height':400,
+                     'width':600,'height':400,
                      'titleTextStyle':   {
 									        'color': 'black',    // any HTML string color ('red', '#cc00cc')
 									        'fontName': 'Times New Roman', // i.e. 'Times New Roman'
@@ -66,7 +66,7 @@ angular.module('newsApp').controller('AnalyticsController', [ '$scope','Analytic
 									        'italic': false  // true of false
 									    	}
                     };
-      	var bar_options ={'width': 500, 'height': 400, 
+      	var bar_options ={'width': 600, 'height': 400, 
                         
                         'titleTextStyle':   {
 									        'color': 'black',    // any HTML string color ('red', '#cc00cc')
@@ -86,7 +86,7 @@ angular.module('newsApp').controller('AnalyticsController', [ '$scope','Analytic
      chart.draw(data, bar_options);
 
 	}
-
+ */
 	function showPopularNews(res) {
 		var data = new google.visualization.DataTable();
 		data.addColumn('string', 'News Title');
@@ -100,7 +100,7 @@ angular.module('newsApp').controller('AnalyticsController', [ '$scope','Analytic
 		data.sort([{column: 1,desc: true}]);
 		data.removeRows(20,data.getNumberOfRows()-20);
 		var table = new google.visualization.Table(document.getElementById('table'));
-		table.draw(data, { width: '1200', height: '290', 'count':10});
+		table.draw(data, { width: '1400', height: '300', 'count':10});
 	}
 
 	function processAggregateFirst(res) {
@@ -113,7 +113,7 @@ angular.module('newsApp').controller('AnalyticsController', [ '$scope','Analytic
 		data.sort([{column: 1,desc: true}]);
 
 		var pie_options = {
-                     'width':500,'height':400,
+                     'width':600,'height':400,
                      'titleTextStyle':   {
 									        'color': 'black',    // any HTML string color ('red', '#cc00cc')
 									        'fontName': 'Times New Roman', // i.e. 'Times New Roman'
@@ -122,7 +122,7 @@ angular.module('newsApp').controller('AnalyticsController', [ '$scope','Analytic
 									        'italic': false  // true of false
 									    	}
                     };
-      var bar_options ={'width': 500, 'height': 400, 
+      var bar_options ={'width': 600, 'height': 400, 
                       
                         'titleTextStyle':   {
 									        'color': 'black',    // any HTML string color ('red', '#cc00cc')
@@ -153,7 +153,7 @@ angular.module('newsApp').controller('AnalyticsController', [ '$scope','Analytic
 		data.sort([{column: 1,desc: true}]);
 		
 		var pie_options = {
-                     'width':500,'height':400,
+                     'width':600,'height':400,
                      'titleTextStyle':   {
 									        'color': 'black',    // any HTML string color ('red', '#cc00cc')
 									        'fontName': 'Times New Roman', // i.e. 'Times New Roman'
@@ -162,7 +162,7 @@ angular.module('newsApp').controller('AnalyticsController', [ '$scope','Analytic
 									        'italic': false  // true of false
 									    	}
                     };
-      	var bar_options ={'width': 500, 'height': 400, 
+      	var bar_options ={'width': 600, 'height': 400, 
                         
                         'titleTextStyle':   {
 									        'color': 'black',    // any HTML string color ('red', '#cc00cc')
@@ -193,7 +193,7 @@ angular.module('newsApp').controller('AnalyticsController', [ '$scope','Analytic
 		data.sort([{column: 1,desc: true}]);
 		data.removeRows(20,data.getNumberOfRows()-20);
 		var table = new google.visualization.Table(document.getElementById('table'));
-		table.draw(data, { width: '1200', height: '290', 'count':10});
+		table.draw(data, { width: '1400', height: '300', 'count':10});
 	}
 
 	function init(){
