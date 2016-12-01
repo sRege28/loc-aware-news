@@ -22,7 +22,7 @@ var saveData = function (err,data)
 				title:   post.title,
 				published: post.thread.published,
 				domain_rank: post.thread.domain_rank,
-				text:       post.text,
+				text:       post.text
 			});
 
 			ents.locations.forEach(function(l){
