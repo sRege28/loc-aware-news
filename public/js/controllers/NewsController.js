@@ -51,6 +51,7 @@ angular.module('newsApp').controller('NewsController', [ '$scope','leafletData',
 				} else {
 					 console.log("Error");
 				}
+				$scope.searchKey = "";
 			});	
 		}	
 	}
