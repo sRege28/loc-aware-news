@@ -13,7 +13,7 @@
 			</div>
         </div>
 
-        <label class="col-sm-3 control-label">Or search news by keyword:</label>
+        <label class="col-sm-3 control-label">Search all news by keyword <span class="glyphicon glyphicon-search" aria-hidden="true"></span>:</label>
         <div class="col-sm-3">
           <input class="form-control" id="searchNews" ng-model="searchKey" ng-keypress="searchNews($event)" 
 		  placeholder="Search..." autocomplete="off" type="text">
@@ -32,7 +32,7 @@
 <div class="col-sm-3">
  <div class="panel panel-primary">
       <div class="panel-heading">Trending news articles</div>
-		  <div class="panel-body">
+		  <div class="panel-body sc">
 			  <ul class="nav nav-stacked" ng-repeat="news in trending">
 				<li><a href="" ng-click="showTrend(news)">{{news.title}}</a></li>
 			  </ul>
@@ -84,7 +84,6 @@
 aria-hidden="true" data-keyboard="false" data-backdrop="static">
 	<div class="modal-dialog">
 		<div class="modal-content">
-
 			<div class="carousel" id="slider">
 				<div class="carousel-inner">
 				<div class="item" ng-class="{active:!$index}" ng-repeat="res in searchRes">
@@ -94,7 +93,7 @@ aria-hidden="true" data-keyboard="false" data-backdrop="static">
 				<div class="modal-body">
 					<div class="form-group">
 					 <div class="scrollNews">
-				        <h2><i class="fa fa-newspaper-o" style="font-size:30px;color:#1f609e"></i> News Article</h2>
+				        <h2><i class="fa fa-newspaper-o" style="font-size:30px;color:#1f609e"></i> News Article<small class="badge pull-right">Article {{$index +1}} of {{searchRes.length}}</small></h2>
 						<div class="news">
 							<p class="rcorners1" ng-bind-html="res.text"></p>
 						</div>
@@ -117,8 +116,8 @@ aria-hidden="true" data-keyboard="false" data-backdrop="static">
 				-->
 				</div>
 				</div>
-				<a class="carousel-control left" href="#slider" data-slide="prev"></a>
-				<a class="carousel-control right" href="#slider" data-slide="next"></a>
+				<a class="carousel-control left" href=".carousel" data-slide="prev"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span></a>
+				<a class="carousel-control right" href=".carousel" data-slide="next"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
 			</div>
 		<div class="modal-footer">
 			<button type="button" class="btn btn-primary" data-dismiss="modal"

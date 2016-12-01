@@ -31,9 +31,10 @@
 	<script src="libs/bootstrap/dist/js/bootstrap.min.js"></script>
 	<script src="https://fastcdn.org/Leaflet.awesome-markers/2.0.1/leaflet.awesome-markers.min.js"></script>
 	<script src="js/app.js"></script>
-	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.10.0/ui-bootstrap-tpls.min.js"></script>
+	<!-- <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.10.0/ui-bootstrap-tpls.min.js"></script> -->
 	<script type="text/javascript" src="https://www.google.com/jsapi"></script>
 	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+	<script src="libs/angular-bootstrap/ui-bootstrap.js"></script>
 	
 	<!-- CONTROLLERS -->
     <script src="js/controllers/NewsController.js"></script>
@@ -70,6 +71,30 @@ p {
     overflow: hidden;
     text-overflow: ellipsis; 
 } -->
+<!-- .carousel-control {
+  top:50%;
+  width:auto;
+  height:1em;
+}
+.carousel-control .glyphicon-chevron-left, .carousel-control .glyphicon-chevron-right  {
+  position:static;
+  display:block;
+  width:auto;
+}
+.carousel-control .glyphicon-chevron-left:before {
+  margin-left:0;
+}
+.carousel-control .glyphicon-chevron-right:before {
+       //Reset the icon
+       content: " ";
+       //Give layout
+       display:block;
+       //Your image as background
+       background:url('https://cdn3.iconfinder.com/data/icons/arrows/16/arrow__chevron-medium-fat-2-01-512.png') no-repeat;
+       //To show full image set the dimensions
+       width:30px;
+       height:30px;
+} -->
 
 .modal fade{
     display: block !important; /* I added this to see the modal, you don't need this */
@@ -101,8 +126,6 @@ p {
 	
 }
 
-
-
 .modal-header {
     padding:9px 15px;
     border-bottom:1px solid #193768;
@@ -123,12 +146,10 @@ p {
  text-shadow: 1px 1px 0 #ffffff, 2px 2px 0 #000000
 }
 
-.panel-body{
+.sc{
   overflow-y: scroll;
   max-height: 500px;
 }
-
-
 
 .scrollNews {
     overflow-y: scroll;
@@ -223,7 +244,7 @@ p {
  
  }
 
-#my_box{
+	#my_box{
     border-radius: 20px;
     width:550px;
 	height:500px;
@@ -239,11 +260,22 @@ p {
 	}
 	
 	.data {
-	 font-family: New Century Schoolbook, serif;
+	 font-family: "Roboto","Helvetica Neue",Arial,sans-serif;
 	 font-size: 25px;
-	 
-	 
+	 -webkit-font-smoothing: antialiased;
+	 padding:12px;
+	}
 	
+	#analytics
+	{
+	   font-family: times, Times New Roman, times-roman, georgia, serif;
+	   font-size:50px;
+	}
+	
+	.stats
+	{
+	   padding-left:25px; !important;
+	   padding-right:25px; !important;
 	}
 
 </style>
