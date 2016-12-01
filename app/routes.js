@@ -2,6 +2,7 @@ var Countries = require('./models/countries');
 var NewsModel = require("./models/news_model");
 //var newsService = require("./services/getNewsAndTweetsfromCountry");
 var TwitterModel = require("./models/twitter_model");
+var db = require('../config/db');
 
 module.exports = function(app) {
 
@@ -42,7 +43,7 @@ module.exports = function(app) {
 			},
 			{
 				$lookup: {
-				  from: 'twitter',
+				  from: db.twitter_col,
 				  localField: '_id',
 				  foreignField: 'news_article_ref',
 				  as: 'tweets'
@@ -80,7 +81,7 @@ module.exports = function(app) {
 				},
 				{
 					$lookup: {
-					  from: 'twitter',
+					  from: db.twitter_col,
 					  localField: '_id',
 					  foreignField: 'news_article_ref',
 					  as: 'tweets'
@@ -240,12 +241,17 @@ module.exports = function(app) {
 	app.get('/getAggregateFirst', function(req, res){
 
 	    NewsModel.aggregate([
+	    	{
+	    		$match: {
+	    			$and:[{"country": {"$exists":true,"$ne":null}},{"country": {"$exists":true,"$ne":""}}]	    		}
+	    	},
 	        {
 	            $group: {
 	                _id: '$country',  //$region is the column name in collection
 	                count: {$sum: 1}
 	            }
 	        }
+
 	    ], function (err, result) {
 	        if (err) {
 	            res.send(err);
@@ -266,7 +272,7 @@ module.exports = function(app) {
 	        	},
 	        	{
 	                $lookup: {
-	                  from: 'news',
+	                  from: db.news_col,
 	                  localField: '_id',
 	                  foreignField: '_id',
 	                  as: 'news'
@@ -281,7 +287,12 @@ module.exports = function(app) {
 		                _id: '$news.country',  
 		                mean_retweets: {$avg: "$mean_retweets"}
 		            }
-	            }
+	            },
+	            {
+		    		$match: {
+		    			$and:[{"_id": {"$exists":true,"$ne":null}},{"_id": {"$exists":true,"$ne":""}}]
+		    		}
+	    		}
 
             ], function(err, docs){
 				if(err)
@@ -309,7 +320,7 @@ module.exports = function(app) {
  			   },
  			   {
 	                $lookup: {
-	                  from: 'news',
+	                  from: db.news_col,
 	                  localField: '_id',
 	                  foreignField: '_id',
 	                  as: 'news'
