@@ -51,6 +51,7 @@ angular.module('newsApp').controller('NewsController', [ '$scope','leafletData',
 				} else {
 					 console.log("Error");
 				}
+				$scope.searchKey = "";
 			});	
 		}	
 	}
@@ -146,7 +147,7 @@ angular.module('newsApp').controller('NewsController', [ '$scope','leafletData',
 		
 		NewsService.getNewsForCountry(selectedCountry.geometry).then(function(res) {
 			if (res != null) {
-			   $scope.points = res;
+			   $scope.points = res;//.slice(1,90);
 			   console.log("News for country:");
 			   console.log($scope.points);
 			   $scope.getMarkers();
