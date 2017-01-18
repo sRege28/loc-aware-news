@@ -33,28 +33,25 @@ function storeTwitterData()
 
 											   var Tweet = new TwitterModel(
 													{
-														created:tweet.created_at,
-														text:tweet.text,
-														user_followers_count:tweet.user.followers_count,
-														user_friends_count:tweet.user.friends_count,
-														retweet_count:tweet.retweet_count,
-														favorite_count: tweet.favorite_count,
-														news_article_ref: objId
+													created:tweet.created_at,
+													text:tweet.text,
+													user_followers_count:tweet.user.followers_count,
+													user_friends_count:tweet.user.friends_count,
+													retweet_count:tweet.retweet_count,
+													favorite_count: tweet.favorite_count,
+													news_article_ref: objId
 													});
-
-
-
-												Tweet.save(function(err, data)
-															{
-															if(err)
-															 {
-																console.log(err);
-															 }
-															else
-															 {
-																console.log("Done");
-															 }
-															});
+											   Tweet.save(function(err, data)
+													{
+													if(err)
+													 {
+														console.log(err);
+													 }
+													else
+													 {
+														console.log("Done");
+													 }
+													});
 
 										});
 						}
