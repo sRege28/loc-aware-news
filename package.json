@@ -7,5 +7,9 @@
         "body-parser" : "~1.4.2",
         "method-override" : "~2.0.2",
 		"cron" : "latest"
+      },
+      "engines": {
+         "node": "6.9.1"
       }
+
 }
