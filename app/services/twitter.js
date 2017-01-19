@@ -52,7 +52,7 @@ var config = {
       }
       
   }
-  //console.log(result);
+  
   return result;
 }
 
@@ -71,9 +71,9 @@ for (i in taggedWords) {
         result = result + " OR " + word;
       }
 }
-//console.log(result);
+
 return result;
   }
 
 module.exports = searchTwitter;
-  //searchTwitter("Syria: Heavy airstrikes resume on east Aleppo, activist group says - CNN.com",function fn(data){console.log(data)});
+

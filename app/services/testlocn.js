@@ -1,5 +1,4 @@
 var NewsModel = require("../models/news_model");
-//var NewsModel = require("../models/news_model");
 var API = require("./api_call");
 var getGeocode = require("./location");
 
@@ -57,7 +56,5 @@ function getAllNewsArticles()
 
 getAllNewsArticles();
 
-
-//findNews();
 
 
