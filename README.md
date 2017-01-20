@@ -11,3 +11,4 @@ To run this project:
 + Run server.js
 + open the website on //localhost:8080
 
+Or visit the live website at: https://cryptic-woodland-41733.herokuapp.com/#/
